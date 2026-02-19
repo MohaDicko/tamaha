@@ -1,0 +1,28 @@
+{
+  "title": "Lancement de la campagne 2024",
+  "date": "2024-01-15T00:00:00.000Z",
+  "excerpt": "Nous sommes fiers d'annoncer le début de notre nouvelle campagne de solidarité pour l'année 2024.",
+  "cover": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop",
+  "tags": [
+    "Annonce",
+    "Campagne",
+    "Solidarité\r"
+  ],
+  "featured": false,
+  "body": {
+    "raw": "\r\n# Une nouvelle année commence\r\n\r\nC'est avec une immense joie que l'équipe de Tamaha lance sa campagne annuelle. Cette année, nous mettons l'accent sur l'accès à l'éducation numérique pour les enfants défavorisés.\r\n\r\n## Nos objectifs\r\n\r\n1. Équiper 5 écoles rurales en matériel informatique.\r\n2. Former 20 enseignants.\r\n3. Sensibiliser 1000 élèves.\r\n\r\nRejoignez-nous dans cette aventure !\r\n",
+    "code": "var Component=(()=>{var u=Object.create;var s=Object.defineProperty;var d=Object.getOwnPropertyDescriptor;var h=Object.getOwnPropertyNames;var p=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var g=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),j=(n,e)=>{for(var a in e)s(n,a,{get:e[a],enumerable:!0})},i=(n,e,a,r)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of h(e))!f.call(n,o)&&o!==a&&s(n,o,{get:()=>e[o],enumerable:!(r=d(e,o))||r.enumerable});return n};var x=(n,e,a)=>(a=n!=null?u(p(n)):{},i(e||!n||!n.__esModule?s(a,\"default\",{value:n,enumerable:!0}):a,n)),b=n=>i(s({},\"__esModule\",{value:!0}),n);var l=g((M,c)=>{c.exports=_jsx_runtime});var C={};j(C,{default:()=>q,frontmatter:()=>v});var t=x(l()),v={title:\"Lancement de la campagne 2024\",date:\"2024-01-15\",excerpt:\"Nous sommes fiers d'annoncer le d\\xE9but de notre nouvelle campagne de solidarit\\xE9 pour l'ann\\xE9e 2024.\",cover:\"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop\",tags:[\"Annonce\",\"Campagne\",\"Solidarit\\xE9\"]};function m(n){let e=Object.assign({h1:\"h1\",p:\"p\",h2:\"h2\",ol:\"ol\",li:\"li\"},n.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(e.h1,{children:\"Une nouvelle ann\\xE9e commence\"}),`\n`,(0,t.jsx)(e.p,{children:\"C'est avec une immense joie que l'\\xE9quipe de Tamaha lance sa campagne annuelle. Cette ann\\xE9e, nous mettons l'accent sur l'acc\\xE8s \\xE0 l'\\xE9ducation num\\xE9rique pour les enfants d\\xE9favoris\\xE9s.\"}),`\n`,(0,t.jsx)(e.h2,{children:\"Nos objectifs\"}),`\n`,(0,t.jsxs)(e.ol,{children:[`\n`,(0,t.jsx)(e.li,{children:\"\\xC9quiper 5 \\xE9coles rurales en mat\\xE9riel informatique.\"}),`\n`,(0,t.jsx)(e.li,{children:\"Former 20 enseignants.\"}),`\n`,(0,t.jsx)(e.li,{children:\"Sensibiliser 1000 \\xE9l\\xE8ves.\"}),`\n`]}),`\n`,(0,t.jsx)(e.p,{children:\"Rejoignez-nous dans cette aventure !\"})]})}function _(n={}){let{wrapper:e}=n.components||{};return e?(0,t.jsx)(e,Object.assign({},n,{children:(0,t.jsx)(m,n)})):m(n)}var q=_;return b(C);})();\n;return Component;"
+  },
+  "_id": "posts/campagne-2024.mdx",
+  "_raw": {
+    "sourceFilePath": "posts/campagne-2024.mdx",
+    "sourceFileName": "campagne-2024.mdx",
+    "sourceFileDir": "posts",
+    "contentType": "mdx",
+    "flattenedPath": "posts/campagne-2024"
+  },
+  "type": "Post",
+  "slug": "campagne-2024",
+  "url": "/blog/campagne-2024",
+  "readingTime": "1 min read"
+}
