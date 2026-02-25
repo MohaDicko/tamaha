@@ -39,7 +39,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 relative">{children}</main>
             <Footer />
             <CommandMenu />
             <WhatsAppButton />

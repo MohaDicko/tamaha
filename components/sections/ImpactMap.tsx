@@ -1,156 +1,143 @@
-
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Info, ArrowUpRight } from "lucide-react";
+import { Globe, Users } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Container } from "@/components/layout/Container";
 
 const locations = [
     {
         id: "matam",
         name: "Matam",
         country: "Sénégal",
-        coords: { x: 75, y: 35 },
-        impact: "Forages & Santé locale",
-        details: "Plus de 5 forages réalisés et soutien au district sanitaire."
+        status: "Actif",
+        details: "Programmes de forages et soutien sanitaire communautaire."
     },
     {
         id: "podor",
         name: "Podor",
         country: "Sénégal",
-        coords: { x: 50, y: 20 },
-        impact: "Reboisement & Climat",
-        details: "1000 arbres plantés contre la désertification."
+        status: "Actif",
+        details: "Lutte contre la désertification et reboisement local."
     },
     {
         id: "niamana",
         name: "Niamana",
         country: "Mali",
-        coords: { x: 85, y: 70 },
-        impact: "Éducation & Hygiène",
-        details: "Kits scolaires et points d'eau pour les écoles."
+        status: "Extension",
+        details: "Éducation et hygiène scolaire pour les jeunes."
     },
     {
         id: "thiaroye",
         name: "Thiaroye",
         country: "Sénégal",
-        coords: { x: 15, y: 55 },
-        impact: "Prévention VBG",
-        details: "Sensibilisation et soutien aux femmes du quartier."
+        status: "Actif",
+        details: "Soutien à l'autonomie des femmes et protection sociale."
     }
 ];
 
 export function ImpactMap() {
-    const [activeLocation, setActiveLocation] = useState(locations[0]);
+    const [activeLocation, setActiveLocation] = useState(0);
 
     return (
-        <section className="py-24 relative overflow-hidden bg-muted/30">
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 blur-[120px] rounded-full -mr-1/4" />
-
-            <div className="max-w-[1400px] mx-auto px-6 sm:px-12">
+        <section className="py-24 bg-slate-50 relative overflow-hidden">
+            <Container>
                 <div className="flex flex-col lg:flex-row gap-16 items-center">
+                    {/* Left: Content */}
+                    <div className="lg:w-1/3 xl:w-1/4 space-y-8">
+                        <div className="space-y-4">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-[10px] font-bold uppercase tracking-widest text-primary"
+                            >
+                                <Globe size={12} /> Présence Régionale
+                            </motion.div>
+                            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-slate-900 leading-[1.1]">
+                                Nos Zones <br />
+                                <span className="text-primary italic">D'Intervention</span>
+                            </h2>
+                            <p className="text-slate-500 text-sm font-medium leading-relaxed">
+                                Nous concentrons nos efforts là où les besoins sont les plus critiques, en travaillant main dans la main avec les communautés locales.
+                            </p>
+                        </div>
 
-                    {/* Left: Map Visualization */}
-                    <div className="flex-1 w-full relative aspect-square max-w-[600px] bg-card/50 backdrop-blur-xl border-2 border-border/50 rounded-[3rem] p-12 shadow-2xl overflow-hidden group">
-                        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+                        <div className="space-y-3">
+                            {locations.map((loc, i) => (
+                                <motion.div
+                                    key={i}
+                                    className={cn(
+                                        "p-5 rounded-2xl border transition-all cursor-pointer",
+                                        activeLocation === i
+                                            ? "bg-white border-primary shadow-lg shadow-primary/5 translate-x-1"
+                                            : "bg-transparent border-slate-200 text-slate-400 hover:border-slate-300"
+                                    )}
+                                    onClick={() => setActiveLocation(i)}
+                                >
+                                    <div className="flex justify-between items-center mb-1">
+                                        <h3 className={cn("font-bold text-xs uppercase tracking-tight", activeLocation === i ? "text-slate-900" : "")}>{loc.name}</h3>
+                                        <span className="text-[9px] font-bold text-primary">{loc.status}</span>
+                                    </div>
+                                    <p className="text-[11px] font-medium leading-tight">{loc.details}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
 
-                        {/* Artistic Map Background (Simplified SVG Senegal/Mali area) */}
-                        <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-primary/20 stroke-[0.5] opacity-40 group-hover:opacity-60 transition-opacity duration-1000">
-                            <path d="M10,40 Q30,10 60,20 Q90,30 85,60 Q80,90 40,85 Q10,70 10,40" strokeDasharray="2 4" />
-                            <path d="M20,50 Q40,30 70,40 Q80,60 70,80 Q50,90 30,70 Z" className="fill-primary/5" />
+                    {/* Right: Map Visual */}
+                    <div className="flex-1 w-full relative aspect-[16/10] bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden p-8 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-slate-50/20" />
+
+                        {/* Map SVG */}
+                        <svg viewBox="0 0 800 500" className="w-full h-full relative z-10 opacity-80">
+                            <path d="M100,200 L180,150 L250,180 L280,300 L200,350 L120,320 Z" className="fill-slate-100 stroke-slate-200" strokeWidth="2" />
+                            <path d="M280,300 L350,150 L500,100 L650,200 L600,400 L400,450 Z" className="fill-slate-50 stroke-slate-200" strokeWidth="2" />
+
+                            {locations.map((loc, i) => {
+                                const x = 200 + i * 120;
+                                const y = 250 + (i % 2 === 0 ? -40 : 40);
+                                return (
+                                    <g key={i} className="cursor-pointer" onClick={() => setActiveLocation(i)}>
+                                        <circle
+                                            cx={x} cy={y}
+                                            r={activeLocation === i ? 10 : 6}
+                                            className={cn("transition-all duration-500", activeLocation === i ? "fill-primary" : "fill-primary/40")}
+                                        />
+                                        {activeLocation === i && (
+                                            <motion.circle
+                                                cx={x} cy={y} r={20}
+                                                className="fill-primary/20"
+                                                initial={{ scale: 0 }}
+                                                animate={{ scale: [1, 1.5, 1] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                            />
+                                        )}
+                                    </g>
+                                );
+                            })}
                         </svg>
 
-                        {/* Hotspots */}
-                        {locations.map((loc) => (
-                            <button
-                                key={loc.id}
-                                onClick={() => setActiveLocation(loc)}
-                                className="absolute transform -translate-x-1/2 -translate-y-1/2 group/pin outline-none"
-                                style={{ left: `${loc.coords.x}%`, top: `${loc.coords.y}%` }}
-                            >
-                                <div className={cn(
-                                    "relative flex items-center justify-center transition-all duration-500",
-                                    activeLocation.id === loc.id ? "scale-125" : "hover:scale-110"
-                                )}>
-                                    <div className={cn(
-                                        "absolute inset-0 rounded-full animate-ping opacity-20",
-                                        activeLocation.id === loc.id ? "bg-primary scale-[2.5]" : "bg-primary/50"
-                                    )} />
-                                    <div className={cn(
-                                        "w-6 h-6 rounded-full border-2 flex items-center justify-center shadow-lg transition-colors",
-                                        activeLocation.id === loc.id ? "bg-primary border-white" : "bg-card border-primary/40"
-                                    )}>
-                                        <MapPin size={12} className={activeLocation.id === loc.id ? "text-white" : "text-primary"} />
+                        {/* Labels Overlay */}
+                        <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-slate-100 pt-6">
+                            <div className="flex gap-8">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                                        <Users size={20} />
                                     </div>
-
-                                    {/* Label on pulse */}
-                                    <span className={cn(
-                                        "absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full transition-all",
-                                        activeLocation.id === loc.id ? "bg-primary text-white opacity-100" : "bg-card border border-border opacity-0 group-hover/pin:opacity-100"
-                                    )}>
-                                        {loc.name}
-                                    </span>
+                                    <div>
+                                        <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Collaborateurs</p>
+                                        <p className="text-xl font-black text-slate-900 leading-none">25+</p>
+                                    </div>
                                 </div>
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Right: Info Content */}
-                    <div className="flex-1 space-y-8 lg:max-w-xl">
-                        <div className="space-y-4">
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">Notre Impact Géographique</h2>
-                            <h3 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9]">
-                                Là où <span className="italic">Tamaha</span> fait la <span className="text-primary italic">différence.</span>
-                            </h3>
-                        </div>
-
-                        <motion.div
-                            key={activeLocation.id}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="bg-card border-2 border-border/50 rounded-[2.5rem] p-10 md:p-12 space-y-6 shadow-xl relative overflow-hidden"
-                        >
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -mr-16 -mt-16" />
-
-                            <div className="space-y-1">
-                                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
-                                    <MapPin size={12} className="text-primary" /> {activeLocation.country}
-                                </div>
-                                <h4 className="text-4xl font-black tracking-tighter italic">{activeLocation.name}</h4>
                             </div>
-
-                            <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
-                                <p className="text-primary font-black uppercase tracking-widest text-xs mb-2">Impact Principal</p>
-                                <p className="text-xl font-black tracking-tight">{activeLocation.impact}</p>
-                            </div>
-
-                            <p className="text-muted-foreground font-medium leading-relaxed italic text-lg">
-                                "{activeLocation.details}"
-                            </p>
-
-                            <div className="pt-4 flex items-center gap-4">
-                                <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest hover:text-primary transition-colors group/link">
-                                    Voir les projets sur place
-                                    <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                                </button>
-                            </div>
-                        </motion.div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="p-6 bg-card border border-border/50 rounded-2xl space-y-1">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Régions Couvertes</p>
-                                <p className="text-2xl font-black italic">4+</p>
-                            </div>
-                            <div className="p-6 bg-card border border-border/50 rounded-2xl space-y-1">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Pays Actifs</p>
-                                <p className="text-2xl font-black italic">Sénégal / Mali</p>
+                            <div className="bg-slate-900 text-white text-[9px] font-bold px-4 py-2 rounded-xl uppercase tracking-widest">
+                                Mission Localisée
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
+            </Container>
         </section>
     );
 }

@@ -1,113 +1,99 @@
+"use client";
 
-import Link from 'next/link';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useState } from "react";
-import { Facebook, Twitter, Instagram, Mail, ArrowRight, ShieldCheck, Send, Loader2 } from 'lucide-react';
-import { toast } from "sonner";
-import { cn } from "@/lib/utils";
-import { Container } from './Container';
+import Link from "next/link";
+import { Container } from "@/components/layout/Container";
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
-    const [email, setEmail] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handleNewsletter = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
-
-        try {
-            const res = await fetch("/api/newsletter", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            });
-
-            if (!res.ok) throw new Error();
-
-            toast.success("Bienvenue ! Vérifiez votre boîte mail.");
-            setEmail("");
-        } catch (err) {
-            toast.error("Une erreur est survenue.");
-        } finally {
-            setIsLoading(false);
-        }
-    };
     return (
-        <footer className="border-t bg-card pt-20 pb-10">
-            <Container>
-                <div className="grid gap-12 lg:grid-cols-4 md:grid-cols-2">
-                    <div className="space-y-6">
-                        <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground font-black text-xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-                                T
+        <footer className="bg-slate-50 border-t border-slate-100 pt-24 pb-12 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+            <Container className="relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+
+                    {/* Brand Section */}
+                    <div className="space-y-8">
+                        <Link href="/" className="flex items-center gap-3 font-bold text-xl tracking-tight text-slate-900 group">
+                            <div className="h-10 w-10 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+                                <img src="/logo.jpg" alt="Logo" className="h-full w-full object-cover" />
                             </div>
-                            <span className="font-black text-2xl tracking-tighter italic">TAMAHA</span>
+                            TAMAHA
                         </Link>
-                        <p className="text-sm text-muted-foreground leading-relaxed font-medium">
-                            Une association engagée pour un avenir meilleur au Mali, centrée sur l'éducation, la santé et le développement communautaire.
+                        <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                            Association loi 1901 dédiée à la solidarité internationale et au développement durable des populations vulnérables.
                         </p>
                         <div className="flex gap-4">
-                            {[Facebook, Twitter, Instagram].map((Icon, i) => (
-                                <Link key={i} href="#" className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all">
+                            {[Facebook, Instagram, Twitter].map((Icon, i) => (
+                                <Link key={i} href="#" className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all shadow-sm">
                                     <Icon size={18} />
                                 </Link>
                             ))}
                         </div>
                     </div>
 
+                    {/* Navigation */}
                     <div>
-                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-foreground mb-6">Navigation</h3>
-                        <ul className="space-y-4 text-sm font-bold text-muted-foreground">
-                            <li><Link href="/about" className="hover:text-primary transition-colors">Notre Vision</Link></li>
-                            <li><Link href="/actions" className="hover:text-primary transition-colors">Projets & Actions</Link></li>
-                            <li><Link href="/events" className="hover:text-primary transition-colors">Agenda Événements</Link></li>
-                            <li><Link href="/blog" className="hover:text-primary transition-colors">Journal d'Actu</Link></li>
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">Navigation</h4>
+                        <ul className="space-y-4">
+                            {['Accueil', 'Nos Actions', 'Le Journal', 'Contact', 'Faire un Don'].map((link) => (
+                                <li key={link}>
+                                    <Link href="#" className="text-sm text-slate-600 font-bold hover:text-primary transition-colors">{link}</Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
+                    {/* Contact Info */}
                     <div>
-                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-foreground mb-6">Engagement</h3>
-                        <ul className="space-y-4 text-sm font-bold text-muted-foreground">
-                            <li><Link href="/donate" className="hover:text-primary transition-colors">Soutenir (Don)</Link></li>
-                            <li><Link href="/partners" className="hover:text-primary transition-colors">Partenariats</Link></li>
-                            <li><Link href="/contact" className="hover:text-primary transition-colors">Rejoindre l'équipe</Link></li>
-                            <li><Link href="/legal/privacy" className="hover:text-primary transition-colors">Confidentialité</Link></li>
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">Contact</h4>
+                        <ul className="space-y-4">
+                            <li className="flex items-center gap-3 text-sm text-slate-600 font-bold">
+                                <Mail size={16} className="text-primary" />
+                                contact@tamaha.org
+                            </li>
+                            <li className="flex items-center gap-3 text-sm text-slate-600 font-bold">
+                                <Phone size={16} className="text-primary" />
+                                +33 0 00 00 00 00
+                            </li>
+                            <li className="flex items-start gap-3 text-sm text-slate-600 font-bold">
+                                <MapPin size={16} className="text-primary mt-1" />
+                                123 Avenue de la Solidarité, 75000 Paris
+                            </li>
                         </ul>
                     </div>
 
-                    <div className="space-y-6">
-                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-foreground mb-6">Newsletter</h3>
-                        <p className="text-xs text-muted-foreground font-medium leading-relaxed">
-                            Recevez nos actualités et l'impact de vos dons directement par email.
-                        </p>
-                        <form onSubmit={handleNewsletter} className="flex gap-2 p-1 bg-muted rounded-2xl border border-border/50 focus-within:border-primary/30 transition-all">
-                            <Input
+                    {/* Newsletter */}
+                    <div className="space-y-8">
+                        <div>
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-6">Journal de bord</h4>
+                            <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                                Recevez nos actualités du terrain directement dans votre boîte mail.
+                            </p>
+                        </div>
+                        <div className="relative group">
+                            <input
                                 type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="votre-email@exemple.com"
-                                className="bg-transparent border-0 focus-visible:ring-0 h-10 font-bold placeholder:text-muted-foreground/50"
-                                required
+                                placeholder="votre@email.com"
+                                className="w-full h-14 bg-white border border-slate-200 rounded-xl px-6 py-4 text-xs font-bold focus:outline-none focus:border-primary transition-colors shadow-sm"
                             />
-                            <Button size="icon" disabled={isLoading} className="rounded-xl shrink-0 h-10 w-10 shadow-lg shadow-primary/20">
-                                {isLoading ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />}
+                            <Button className="absolute right-2 top-2 h-10 w-10 rounded-lg p-0 bg-primary text-white">
+                                <ArrowRight size={18} />
                             </Button>
-                        </form>
-                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-black uppercase tracking-widest opacity-60">
-                            <ShieldCheck size={12} className="text-green-500" />
-                            RGPD Compliant
                         </div>
                     </div>
                 </div>
 
-                <div className="mt-20 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-6">
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
-                        © {new Date().getFullYear()} TAMAHA ASSOCIATION. DESIGNED BY TAMAHA TECH.
+                {/* Bottom Bar */}
+                <div className="pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                        © 2024 Association Tamaha. Tous droits réservés.
                     </p>
-                    <div className="flex items-center gap-6">
-                        <Link href="/legal/terms" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">Conditions</Link>
-                        <Link href="/legal/privacy" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">Sécurité</Link>
+                    <div className="flex gap-8">
+                        {['Conditions', 'Confidentialité', 'Légal'].map(l => (
+                            <Link key={l} href="#" className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors">{l}</Link>
+                        ))}
                     </div>
                 </div>
             </Container>

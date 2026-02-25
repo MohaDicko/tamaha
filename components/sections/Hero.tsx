@@ -1,109 +1,119 @@
-
 "use client";
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/layout/Container';
-import { Heart, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Globe, Users, Sparkles, Zap, Shield } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useRef } from 'react';
 
 export function Hero() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+    const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
     return (
-        <section className="relative w-full py-20 md:py-32 lg:py-40 overflow-hidden bg-background">
-            {/* Animated Background Orbs */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 90, 0],
-                        x: [0, 50, 0],
-                        y: [0, -50, 0],
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px]"
-                />
-                <motion.div
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        rotate: [0, -120, 0],
-                        x: [0, -60, 0],
-                        y: [0, 40, 0],
-                    }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-[10%] -right-[10%] w-[40%] h-[60%] rounded-full bg-secondary/20 blur-[100px]"
-                />
+        <section ref={containerRef} className="relative min-h-[90vh] flex items-center pt-20 pb-20 overflow-hidden bg-slate-50">
+            {/* Professional Background Elements */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 blur-[120px] rounded-full opacity-50" />
+                <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-secondary/10 blur-[100px] rounded-full opacity-30" />
             </div>
 
             <Container className="relative z-10">
-                <div className="flex flex-col items-center text-center space-y-10">
-                    {/* Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted/50 border border-border text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
-                    >
-                        <ShieldCheck size={14} className="text-primary" />
-                        Association Reconnue d'Intérêt Général
-                    </motion.div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
-                    {/* Main Title */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-6"
-                    >
-                        <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9]">
-                            AGIR POUR <br />
-                            <span className="text-primary italic">L'AVENIR</span>
-                        </h1>
-                        <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground font-medium leading-relaxed">
-                            Tamaha transforme l'espoir en <span className="text-foreground font-bold italic underline decoration-primary/40 underline-offset-4">actions concrètes</span>.
-                            Santé, éducation et émancipation au cœur du Sénégal.
-                        </p>
-                    </motion.div>
+                    {/* Content Section */}
+                    <div className="lg:col-span-12 xl:col-span-7 space-y-10">
+                        <div className="space-y-6">
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-bold uppercase tracking-widest text-primary"
+                            >
+                                <Sparkles size={14} className="text-primary" />
+                                Association Tamaha • Solidarité & Espoir
+                            </motion.div>
 
-                    {/* Buttons */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
-                    >
-                        <Button size="lg" className="w-full sm:w-auto h-16 px-12 text-lg font-black uppercase tracking-widest rounded-full shadow-2xl shadow-primary/30 hover:scale-105 transition-transform group" asChild>
-                            <Link href="/donate">
-                                <Heart size={18} className="mr-2 fill-current" />
-                                Soutenir
-                            </Link>
-                        </Button>
-                        <Button variant="outline" size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-black uppercase tracking-widest rounded-full border-2 hover:bg-muted transition-all group" asChild>
-                            <Link href="/actions">
-                                Nos Projets
-                                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </Button>
-                    </motion.div>
+                            <div className="space-y-4">
+                                <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] text-slate-900 uppercase">
+                                    Bâtir un <span className="text-primary italic">Avenir</span> <br />
+                                    Durable et Solidaire
+                                </h1>
 
-                    {/* Quick Stats Micro-Feed */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        className="pt-8 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12"
-                    >
-                        <div className="flex flex-col items-center gap-1">
-                            <span className="text-xl font-black text-primary">2500+</span>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Impactés</span>
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.3 }}
+                                    className="max-w-2xl text-lg md:text-xl text-slate-600 font-medium leading-relaxed"
+                                >
+                                    Tamaha s'engage pour l'autonomie des communautés au Sénégal et au Mali à travers des actions concrètes en santé, éducation et protection sociale.
+                                </motion.p>
+                            </div>
                         </div>
-                        <div className="flex flex-col items-center gap-1">
-                            <span className="text-xl font-black text-primary">15</span>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Partenaires</span>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex flex-col sm:flex-row items-center gap-6"
+                        >
+                            <Button size="lg" className="h-16 px-10 text-xs font-bold uppercase tracking-widest rounded-full bg-primary text-white hover:bg-primary/90 transition-all shadow-xl shadow-primary/20 group" asChild>
+                                <Link href="/donate">
+                                    Faire un Don
+                                    <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                            </Button>
+
+                            <Button variant="outline" className="h-16 px-10 text-xs font-bold uppercase tracking-widest rounded-full border-slate-200 text-slate-600 hover:bg-slate-50" asChild>
+                                <Link href="/actions">
+                                    Nos Projets
+                                </Link>
+                            </Button>
+                        </motion.div>
+
+                        <div className="pt-8 flex items-center gap-10 border-t border-slate-200 w-fit">
+                            <div className="flex flex-col">
+                                <span className="text-3xl font-black text-slate-900 tracking-tighter">1500+</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Bénéficiaires</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-3xl font-black text-slate-900 tracking-tighter">08</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Projets Actifs</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-3xl font-black text-slate-900 tracking-tighter">100%</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Transparence</span>
+                            </div>
                         </div>
-                        <div className="hidden md:flex flex-col items-center gap-1">
-                            <span className="text-xl font-black text-primary">0%</span>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Bénéfices</span>
+                    </div>
+
+                    {/* Right Side: Professional Visual */}
+                    <div className="lg:col-span-12 xl:col-span-5 relative hidden xl:block">
+                        <div className="relative z-10 w-full aspect-square bg-white rounded-[3rem] p-12 shadow-2xl border border-slate-100 overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+                            <div className="relative h-full w-full rounded-2xl overflow-hidden border border-slate-100 shadow-inner">
+                                <img
+                                    src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+                                    alt="Humanitarian Action"
+                                    className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                <div className="absolute bottom-6 left-6 right-6">
+                                    <p className="text-white text-sm font-bold italic leading-relaxed">
+                                        "L'éducation est l'arme la plus puissante pour changer le monde."
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </motion.div>
+                        {/* Decorative blobs */}
+                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl" />
+                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
+                    </div>
+
                 </div>
             </Container>
         </section>
