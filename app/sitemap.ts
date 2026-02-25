@@ -1,10 +1,12 @@
 
 import { MetadataRoute } from 'next';
-import { getPosts } from '@/lib/content';
+import { getPosts, getProjects, getEvents } from '@/lib/content';
 import { env } from '@/lib/env';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const posts = getPosts();
+    const projects = getProjects();
+    const events = getEvents();
     const baseUrl = env.NEXT_PUBLIC_SITE_URL;
 
     const routes = [
@@ -32,5 +34,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.6,
     }));
 
-    return [...routes, ...blogRoutes];
+    const projectRoutes = projects.map((project) => ({
+        url: `${baseUrl}/actions/${project.slug}`,
+        lastModified: new Date(project.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    const eventRoutes = events.map((event) => ({
+        url: `${baseUrl}/events/${event.slug}`,
+        lastModified: new Date(event.date),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+    }));
+
+    return [...routes, ...blogRoutes, ...projectRoutes, ...eventRoutes];
 }

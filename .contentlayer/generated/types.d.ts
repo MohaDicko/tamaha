@@ -35,6 +35,11 @@ export type Post = {
   cover?: string | undefined
   tags?: string[] | undefined
   featured: boolean
+  format: 'article' | 'video' | 'gallery' | 'status'
+  videoUrl?: string | undefined
+  images?: string[] | undefined
+  author: string
+  authorAvatar?: string | undefined
   /** MDX file body */
   body: MDX
   slug: string

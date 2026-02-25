@@ -10,7 +10,22 @@ var Post = defineDocumentType(() => ({
     excerpt: { type: "string", required: true },
     cover: { type: "string", required: false },
     tags: { type: "list", of: { type: "string" }, required: false },
-    featured: { type: "boolean", required: false, default: false }
+    featured: { type: "boolean", required: false, default: false },
+    // Enhanced fields for social/media feed
+    format: {
+      type: "enum",
+      options: ["article", "video", "gallery", "status"],
+      default: "article",
+      required: false
+    },
+    videoUrl: { type: "string", required: false },
+    images: { type: "list", of: { type: "string" }, required: false },
+    author: {
+      type: "string",
+      required: false,
+      default: "Tamaha Team"
+    },
+    authorAvatar: { type: "string", required: false }
   },
   computedFields: {
     slug: {
@@ -86,4 +101,4 @@ var contentlayer_config_default = makeSource({
 export {
   contentlayer_config_default as default
 };
-//# sourceMappingURL=compiled-contentlayer-config-NHRJFOQY.mjs.map
+//# sourceMappingURL=compiled-contentlayer-config-GYG5HP65.mjs.map
