@@ -1,5 +1,5 @@
 
 // This file acts as an abstraction layer for content retrieval.
-// Currently implementing MDX. To switch to a CMS, replace imports from './mdx' with './sanity' or similar.
+// Switched from MDX to DB (Prisma) for production compatibility.
 
-export * from './mdx';
+export * from './db';

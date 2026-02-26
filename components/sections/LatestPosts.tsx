@@ -6,9 +6,8 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
 import { MediaPostCard } from "@/components/blog/MediaPostCard";
-import { Post } from "@/lib/content";
 
-export function LatestPosts({ posts }: { posts: Post[] }) {
+export function LatestPosts({ posts }: { posts: any[] }) {
     return (
         <section className="py-32 bg-white relative overflow-hidden">
             {/* Background Decor */}
@@ -38,7 +37,7 @@ export function LatestPosts({ posts }: { posts: Post[] }) {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                    {posts.map((post: Post) => (
+                    {posts.map((post: any) => (
                         <motion.div
                             key={post.slug}
                             initial={{ opacity: 0, y: 30 }}

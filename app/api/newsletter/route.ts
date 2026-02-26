@@ -1,26 +1,38 @@
 
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { prisma } from "@/lib/prisma";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
+  try {
+    const { email } = await req.json();
+
+    if (!email || !email.includes("@")) {
+      return NextResponse.json({ error: "Email invalide" }, { status: 400 });
+    }
+
+    // Save to DB
     try {
-        const { email } = await req.json();
+      await prisma.newsletter.upsert({
+        where: { email },
+        update: {},
+        create: { email }
+      });
+    } catch (dbError) {
+      console.error("Newsletter DB error:", dbError);
+    }
 
-        if (!email || !email.includes("@")) {
-            return NextResponse.json({ error: "Email invalide" }, { status: 400 });
-        }
+    // Note: Pour une vraie newsletter, vous devriez utiliser 
+    // resend.contacts.create({ audience_id: '...', email: email })
+    // Pour cette démo, on simule l'envoi d'un mail de bienvenue
 
-        // Note: Pour une vraie newsletter, vous devriez utiliser 
-        // resend.contacts.create({ audience_id: '...', email: email })
-        // Pour cette démo, on simule l'envoi d'un mail de bienvenue
-
-        await resend.emails.send({
-            from: "Tamaha <onboarding@resend.dev>", // Utilisez votre domaine vérifié en prod
-            to: email,
-            subject: "Bienvenue dans la communauté Tamaha ! 🌍",
-            html: `
+    await resend.emails.send({
+      from: "Tamaha <onboarding@resend.dev>", // Utilisez votre domaine vérifié en prod
+      to: email,
+      subject: "Bienvenue dans la communauté Tamaha ! 🌍",
+      html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
           <h1 style="color: #000; text-align: center;">Merci de nous avoir rejoints !</h1>
           <p style="font-size: 16px; line-height: 1.6; color: #444;">
@@ -39,11 +51,11 @@ export async function POST(req: Request) {
           </p>
         </div>
       `,
-        });
+    });
 
-        return NextResponse.json({ success: true });
-    } catch (error: any) {
-        console.error("Newsletter error:", error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("Newsletter error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }

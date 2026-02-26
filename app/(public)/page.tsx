@@ -12,9 +12,10 @@ export const metadata = {
     description: 'Tamaha est une association engagée pour la santé, l\'éducation et la protection des plus vulnérables au Sénégal.',
 };
 
-export default function Home() {
+export default async function Home() {
     // Get latest 3 posts for the highlights
-    const posts = getPosts().slice(0, 3);
+    const allPosts = await getPosts();
+    const posts = allPosts.slice(0, 3);
 
     return (
         <div className="flex flex-col w-full overflow-x-hidden bg-[#050505]">

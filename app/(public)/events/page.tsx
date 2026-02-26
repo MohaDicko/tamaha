@@ -1,17 +1,17 @@
 
 import Image from 'next/image';
-import { getEvents, Event } from '@/lib/content';
+import { getEvents } from '@/lib/content';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Container } from '@/components/layout/Container';
-import { formatDate } from '@/lib/utils'; // Keep formatDate for event date.
+import { formatDate } from '@/lib/utils';
 
 export const metadata = {
     title: 'Événements',
     description: 'Participez à nos événements solidaires.',
 };
 
-export default function Events() {
-    const events = getEvents();
+export default async function Events() {
+    const events = await getEvents();
 
     return (
         <div className="bg-background min-h-screen pb-20">
@@ -22,7 +22,7 @@ export default function Events() {
 
             <Container>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {events.map((event: Event) => (
+                    {events.map((event: any) => (
                         <Card key={event.slug} className="group relative overflow-hidden transition-all hover:shadow-xl">
                             <div className="relative aspect-[3/2] w-full overflow-hidden">
                                 {event.cover && (

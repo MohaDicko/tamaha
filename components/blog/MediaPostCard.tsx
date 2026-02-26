@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Post } from '@/lib/content/mdx';
 import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Play, MessageSquare, Heart, Bookmark, MoreHorizontal, Share2, Sparkles } from 'lucide-react';
@@ -14,7 +13,8 @@ import { Button } from '@/components/ui/button';
 import { SocialShare } from './SocialShare';
 import { cn } from '@/lib/utils';
 
-export function MediaPostCard({ post }: { post: Post }) {
+export function MediaPostCard({ post }: { post: any }) {
+    const postUrl = `/blog/${post.slug}`;
     const isVideo = post.format === 'video';
     const isGallery = post.format === 'gallery';
 
@@ -51,11 +51,11 @@ export function MediaPostCard({ post }: { post: Post }) {
                         <Avatar className="h-10 w-10 border border-slate-100 group-hover:border-primary transition-all duration-500">
                             <AvatarImage src={post.authorAvatar} />
                             <AvatarFallback className="bg-slate-50 text-slate-400 font-bold">
-                                {post.author?.split(' ').map(n => n[0]).join('')}
+                                {post.author?.split(' ').map((n: string) => n[0]).join('') || '?'}
                             </AvatarFallback>
                         </Avatar>
                         <div>
-                            <p className="text-sm font-bold leading-none text-slate-900">{post.author}</p>
+                            <p className="text-sm font-bold leading-none text-slate-900">{post.author || 'Anonyme'}</p>
                             <p className="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">
                                 {formatDate(post.date)}
                             </p>
@@ -90,7 +90,7 @@ export function MediaPostCard({ post }: { post: Post }) {
                         </div>
                     ) : isGallery ? (
                         <div className="grid grid-cols-2 gap-0.5 w-full h-full relative group/media bg-slate-50">
-                            {post.images?.slice(0, 4).map((img, idx) => (
+                            {post.images?.slice(0, 4).map((img: string, idx: number) => (
                                 <div key={idx} className="relative w-full h-full overflow-hidden">
                                     <Image
                                         src={img}
@@ -110,7 +110,7 @@ export function MediaPostCard({ post }: { post: Post }) {
                             </div>
                         </div>
                     ) : (
-                        <Link href={post.url} className="block w-full h-full overflow-hidden relative group/media">
+                        <Link href={postUrl} className="block w-full h-full overflow-hidden relative group/media">
                             {post.cover && (
                                 <Image
                                     src={post.cover}
@@ -129,7 +129,7 @@ export function MediaPostCard({ post }: { post: Post }) {
                 {/* Content */}
                 <CardContent className="p-6 pb-2 flex-1 flex flex-col">
                     <div className="space-y-3 flex-1">
-                        <Link href={post.url}>
+                        <Link href={postUrl}>
                             <h3 className="text-xl font-black leading-tight tracking-tight text-slate-900 group-hover:text-primary transition-colors">
                                 {post.title}
                             </h3>
@@ -140,7 +140,7 @@ export function MediaPostCard({ post }: { post: Post }) {
                     </div>
 
                     <div className="flex gap-2 flex-wrap pt-4">
-                        {post.tags?.map(tag => (
+                        {post.tags?.map((tag: string) => (
                             <span key={tag} className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline cursor-pointer">
                                 #{tag}
                             </span>
@@ -166,7 +166,7 @@ export function MediaPostCard({ post }: { post: Post }) {
                             </span>
                         </Button>
                         <Button variant="ghost" size="sm" className="text-slate-400 hover:text-primary gap-2 h-9 px-3 rounded-lg" asChild>
-                            <Link href={post.url}>
+                            <Link href={postUrl}>
                                 <MessageSquare size={16} />
                                 <span className="text-[10px] font-bold uppercase tracking-widest">Commenter</span>
                             </Link>

@@ -1,9 +1,9 @@
 
 import Image from 'next/image';
-import { getProjects, Project } from '@/lib/content';
+import { getProjects } from '@/lib/content';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Container } from '@/components/layout/Container';
-import { cn, formatDate } from '@/lib/utils'; // Keep formatDate if desired, though projects usually span time.
+import { cn, formatDate } from '@/lib/utils';
 
 export const metadata = {
     title: 'Nos Actions',
@@ -16,8 +16,8 @@ const statusMap: Record<string, { label: string; color: string }> = {
     planned: { label: 'À venir', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300' },
 };
 
-export default function Actions() {
-    const projects = getProjects();
+export default async function Actions() {
+    const projects = await getProjects();
 
     return (
         <div className="bg-background min-h-screen pb-20">
@@ -28,7 +28,7 @@ export default function Actions() {
 
             <Container>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project: Project) => (
+                    {projects.map((project: any) => (
                         <Card key={project.slug} className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
                             <div className="relative aspect-video w-full bg-muted">
                                 {project.cover && (
@@ -53,7 +53,6 @@ export default function Actions() {
                             </CardHeader>
                             <CardContent className="flex-1">
                                 <div className="prose prose-sm dark:prose-invert line-clamp-4 text-muted-foreground">
-                                    {/* Render simplified content or excerpt */}
                                     {project.excerpt}
                                 </div>
                             </CardContent>

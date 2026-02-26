@@ -2,14 +2,13 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Post } from '@/lib/content/mdx';
 import { MediaPostCard } from './MediaPostCard';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
-export function MediaFeed({ posts }: { posts: Post[] }) {
+export function MediaFeed({ posts }: { posts: any[] }) {
     const [filter, setFilter] = useState<'all' | 'article' | 'video' | 'status'>('all');
     const [visibleCount, setVisibleCount] = useState(6);
     const [isLoading, setIsLoading] = useState(true);

@@ -1,6 +1,7 @@
 
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { env } from "@/lib/env";
 
 const handler = NextAuth({
     providers: [
@@ -11,16 +12,14 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
-                // Pour la démonstration, on utilise des identifiants statiques
-                // Dans un vrai projet, on vérifierait dans une base de données
                 if (
-                    credentials?.email === "admin" &&
-                    credentials?.password === "admin"
+                    credentials?.email === env.ADMIN_USER &&
+                    credentials?.password === env.ADMIN_PASSWORD
                 ) {
                     return {
                         id: "1",
                         name: "Administrateur Tamaha",
-                        email: "admin",
+                        email: env.ADMIN_USER,
                         role: "ADMIN"
                     };
                 }

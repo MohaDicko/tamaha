@@ -1,5 +1,5 @@
 
-import { getPost, getPosts, Post } from '@/lib/content';
+import { getPost, getPosts } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import { MDXComponents } from '@/components/blog/MDXComponents';
 import { PostMeta } from '@/components/blog/PostMeta';
@@ -10,12 +10,12 @@ interface PostPageProps {
 }
 
 export async function generateStaticParams() {
-    const posts = getPosts();
-    return posts.map((post: Post) => ({ slug: post.slug }));
+    const posts = await getPosts();
+    return posts.map((post: any) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
-    const post = getPost(params.slug);
+    const post = await getPost(params.slug);
     if (!post) return;
 
     return {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PostPageProps) {
             title: post.title,
             description: post.excerpt,
             type: 'article',
-            publishedTime: post.date,
+            publishedTime: post.date.toISOString(),
             authors: ['Tamaha'],
             images: [
                 {
@@ -36,8 +36,10 @@ export async function generateMetadata({ params }: PostPageProps) {
     };
 }
 
-export default function PostPage({ params }: PostPageProps) {
-    const post = getPost(params.slug);
+import { RemoteMDX } from '@/components/blog/RemoteMDX';
+
+export default async function PostPage({ params }: PostPageProps) {
+    const post = await getPost(params.slug);
     if (!post) notFound();
 
     return (
@@ -53,9 +55,9 @@ export default function PostPage({ params }: PostPageProps) {
 
             <Container className="max-w-3xl relative -mt-32 z-10 bg-background/95 backdrop-blur-sm p-8 rounded-xl shadow-lg border">
                 <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">{post.title}</h1>
-                <PostMeta post={post} />
+                <PostMeta post={post as any} />
                 <div className="mt-12">
-                    <MDXComponents code={post.body.code} />
+                    <RemoteMDX content={post.content} />
                 </div>
                 <div className="mt-16 pt-8 border-t">
                     <p className="text-center font-bold text-muted-foreground italic">

@@ -1,0 +1,73 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  date         DateTime @default(now())
+  excerpt      String
+  content      String
+  cover        String?
+  tags         String   @default("[]") // stored as JSON string
+  featured     Boolean  @default(false)
+  format       String   @default("article") // 'article', 'video', 'gallery', 'status'
+  videoUrl     String?
+  images       String   @default("[]") // stored as JSON string
+  author       String   @default("Tamaha Team")
+  authorAvatar String?
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  date      DateTime
+  excerpt   String
+  content   String
+  cover     String?
+  location  String
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  date      DateTime
+  excerpt   String
+  content   String
+  cover     String?
+  status    String   @default("ongoing") // 'ongoing', 'completed', 'planned'
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

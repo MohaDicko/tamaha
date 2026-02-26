@@ -8,8 +8,8 @@ export const metadata = {
     description: 'Suivez nos actions, nos vidéos et nos albums photos sur le terrain.',
 };
 
-export default function Blog() {
-    const posts = getPosts();
+export default async function Blog() {
+    const posts = await getPosts();
 
     return (
         <div className="bg-background min-h-screen pb-32">
