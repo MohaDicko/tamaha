@@ -26,6 +26,15 @@ export async function getTags() {
         select: { tags: true },
     });
     const tags = new Set<string>();
-    posts.forEach((post: { tags: string[] }) => post.tags.forEach((tag: string) => tags.add(tag)));
+    posts.forEach((post) => {
+        try {
+            const parsedTags = typeof post.tags === 'string' ? JSON.parse(post.tags) : post.tags;
+            if (Array.isArray(parsedTags)) {
+                parsedTags.forEach((tag: string) => tags.add(tag));
+            }
+        } catch (e) {
+            // Ignore parse errors
+        }
+    });
     return Array.from(tags).sort();
 }

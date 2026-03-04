@@ -55,11 +55,11 @@ export function Footer() {
                             </li>
                             <li className="flex items-center gap-3 text-sm text-slate-600 font-bold">
                                 <Phone size={16} className="text-primary" />
-                                +33 0 00 00 00 00
+                                +223 85 05 02 02
                             </li>
                             <li className="flex items-start gap-3 text-sm text-slate-600 font-bold">
                                 <MapPin size={16} className="text-primary mt-1" />
-                                123 Avenue de la Solidarité, 75000 Paris
+                                Siège Niamana Dougoukoro
                             </li>
                         </ul>
                     </div>

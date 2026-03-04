@@ -1,6 +1,6 @@
 
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { DM_Sans, DM_Serif_Display } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { constructMetadata } from '@/lib/seo';
@@ -12,7 +12,20 @@ import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { cn } from '@/lib/utils';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const dmSerif = DM_Serif_Display({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+});
 
 export const metadata: Metadata = constructMetadata();
 
@@ -30,7 +43,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
-      <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col transition-colors duration-500", inter.className)}>
+      <body className={cn(
+        "min-h-screen bg-background antialiased flex flex-col transition-colors duration-500",
+        dmSans.variable,
+        dmSerif.variable,
+        dmSans.className
+      )}>
         <SessionProvider>
           <ThemeProvider
             attribute="class"

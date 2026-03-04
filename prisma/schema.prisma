@@ -4,8 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Post {
@@ -70,4 +71,15 @@ model Message {
   message   String
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Donation {
+  id        String   @id @default(cuid())
+  amount    Float
+  method    String   // 'card', 'mobile', 'transfer'
+  provider  String?  // 'orange', 'wave', etc.
+  status    String   @default("PENDING") // 'PENDING', 'COMPLETED', 'FAILED'
+  frequency String   @default("once") // 'once', 'monthly'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

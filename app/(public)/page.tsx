@@ -1,5 +1,6 @@
 
 import { Hero } from '@/components/sections/Hero';
+import { Interventions } from '@/components/sections/Interventions';
 import { ImpactStats } from '@/components/sections/ImpactStats';
 import { ImpactMap } from '@/components/sections/ImpactMap';
 import { CTA } from '@/components/sections/CTA';
@@ -18,8 +19,11 @@ export default async function Home() {
     const posts = allPosts.slice(0, 3);
 
     return (
-        <div className="flex flex-col w-full overflow-x-hidden bg-[#050505]">
+        <div className="flex flex-col w-full overflow-x-hidden bg-white">
             <Hero />
+
+            {/* Our Interventions */}
+            <Interventions />
 
             {/* Impact Highlights */}
             <ImpactStats />

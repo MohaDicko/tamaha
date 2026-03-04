@@ -20,7 +20,7 @@ export function DonationForm() {
     const [step, setStep] = useState(1);
     const [method, setMethod] = useState<'card' | 'transfer' | 'mobile' | null>(null);
     const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
-    const [mobileProvider, setMobileProvider] = useState<'orange' | 'moov' | null>(null);
+    const [mobileProvider, setMobileProvider] = useState<'orange' | 'wave' | null>(null);
 
     const handleAmountClick = (val: number) => {
         setAmount(val);
@@ -168,7 +168,7 @@ export function DonationForm() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {[
                                         { id: 'card', name: 'Carte Bancaire', sub: 'Sécurisé Stripe', icon: CreditCard },
-                                        { id: 'mobile', name: 'Mobile Money', sub: 'Orange / Moov', icon: Zap },
+                                        { id: 'mobile', name: 'Mobile Money', sub: 'Orange / Wave', icon: Zap },
                                         { id: 'transfer', name: 'Virement IBAN', sub: 'Zone SEPA / Mali', icon: Landmark }
                                     ].map((m) => (
                                         <button
@@ -258,14 +258,14 @@ export function DonationForm() {
                                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] block">Orange Money</span>
                                             </button>
                                             <button
-                                                onClick={() => setMobileProvider('moov')}
+                                                onClick={() => setMobileProvider('wave')}
                                                 className={cn(
                                                     "p-8 rounded-[2rem] border-2 transition-all duration-500 text-center space-y-4 group",
-                                                    mobileProvider === 'moov' ? "border-[#0066CC] bg-[#0066CC]/10 shadow-[0_10px_30px_rgba(0,102,204,0.2)]" : "border-white/5 bg-white/5 hover:border-[#0066CC]/40"
+                                                    mobileProvider === 'wave' ? "border-[#1DC3ED] bg-[#1DC3ED]/10 shadow-[0_10px_30px_rgba(29,195,237,0.2)]" : "border-white/5 bg-white/5 hover:border-[#1DC3ED]/40"
                                                 )}
                                             >
-                                                <div className="w-16 h-16 bg-[#0066CC] rounded-2xl flex items-center justify-center mx-auto text-white font-black text-2xl shadow-xl group-hover:rotate-6 transition-transform">M</div>
-                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] block">Moov Money</span>
+                                                <div className="w-16 h-16 bg-[#1DC3ED] rounded-2xl flex items-center justify-center mx-auto text-white font-black text-2xl shadow-xl group-hover:rotate-6 transition-transform">W</div>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] block">Wave</span>
                                             </button>
                                         </div>
 
@@ -279,7 +279,7 @@ export function DonationForm() {
                                                 <div className="flex items-center gap-4">
                                                     <div className={cn(
                                                         "w-4 h-4 rounded-full animate-pulse",
-                                                        mobileProvider === 'orange' ? "bg-orange-500 shadow-[0_0_15px_rgba(255,102,0,0.5)]" : "bg-blue-500 shadow-[0_0_15px_rgba(0,102,204,0.5)]"
+                                                        mobileProvider === 'orange' ? "bg-orange-500 shadow-[0_0_15px_rgba(255,102,0,0.5)]" : "bg-[#1DC3ED] shadow-[0_0_15px_rgba(29,195,237,0.5)]"
                                                     )} />
                                                     <span className="text-[11px] font-black uppercase tracking-[0.3em] text-white/60">Instructions d'Impact</span>
                                                 </div>
@@ -288,15 +288,41 @@ export function DonationForm() {
                                                         Transférez <span className="text-white font-black underline decoration-primary underline-offset-8">{amount}€</span> au numéro officiel TAMAHA:
                                                     </p>
                                                     <div className="bg-white/10 p-6 rounded-2xl border border-white/10 text-center">
-                                                        <strong className="text-4xl font-black tracking-[0.15em] block text-primary">+223 70 00 00 00</strong>
+                                                        <strong className="text-4xl font-black tracking-[0.15em] block text-primary">85 05 02 02</strong>
                                                     </div>
                                                     <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30 pt-4">
                                                         <span>Nom du Compte: Assoc TAMAHA</span>
                                                         <span>Pays: Mali / Sénégal</span>
                                                     </div>
                                                 </div>
-                                                <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20 text-[11px] font-medium leading-relaxed italic text-primary/80">
-                                                    Une fois l'envoi terminé, partagez la référence par WhatsApp. Nos équipes valideront l'impact immédiatement.
+                                                <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20 space-y-4">
+                                                    <p className="text-[11px] font-medium leading-relaxed italic text-primary/80">
+                                                        Une fois l'envoi terminé, envoyez-nous la référence par WhatsApp. Nos équipes valideront l'impact immédiatement.
+                                                    </p>
+                                                    <Button
+                                                        onClick={async () => {
+                                                            try {
+                                                                const res = await fetch('/api/donate', {
+                                                                    method: 'POST',
+                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                    body: JSON.stringify({ amount: Number(amount), method: 'mobile', provider: mobileProvider, frequency })
+                                                                });
+                                                                let ref = '';
+                                                                if (res.ok) {
+                                                                    const data = await res.json();
+                                                                    ref = data.reference;
+                                                                }
+
+                                                                const text = encodeURIComponent(`Bonjour l'équipe Tamaha ! Je viens de faire un don de ${amount}€ via ${mobileProvider === 'orange' ? 'Orange Money' : 'Wave'}. Voici la référence de la transaction : `);
+                                                                window.open(`https://wa.me/22385050202?text=${text}`, '_blank');
+                                                            } catch (err) {
+                                                                console.error("Donation tracking error", err);
+                                                            }
+                                                        }}
+                                                        className="w-full h-12 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                                                    >
+                                                        Confirmer sur WhatsApp
+                                                    </Button>
                                                 </div>
                                             </motion.div>
                                         )}
