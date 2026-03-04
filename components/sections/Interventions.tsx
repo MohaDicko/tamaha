@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { Users, Stethoscope, Activity, MessageCircle, Droplets, BrainHeart } from "lucide-react";
+import { Users, Stethoscope, Activity, MessageCircle, Droplets, Brain } from "lucide-react";
 
 const interventions = [
     {
@@ -29,7 +29,7 @@ const interventions = [
     {
         title: "Soutien Psychologique",
         description: "Accompagnement psychologique et écoute active pour aider à surmonter les traumatismes.",
-        icon: BrainHeart,
+        icon: Brain,
         color: "text-purple-500",
         bgColor: "bg-purple-50",
     },
