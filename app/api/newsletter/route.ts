@@ -7,10 +7,30 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const { email, turnstileToken } = await req.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Email invalide" }, { status: 400 });
+    }
+
+    // Verify Turnstile Token
+    const verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+    const secret = process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+
+    const turnstileRes = await fetch(verifyEndpoint, {
+      method: 'POST',
+      body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(turnstileToken)}`,
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    });
+
+    const turnstileData = await turnstileRes.json();
+    if (!turnstileData.success) {
+      return NextResponse.json(
+        { error: 'Échec de la validation anti-robot. Veuillez réessayer.' },
+        { status: 400 }
+      );
     }
 
     // Save to DB

@@ -12,6 +12,7 @@ const contactSchema = z.object({
     subject: z.string().min(5),
     message: z.string().min(10),
     honeypot: z.string().optional().or(z.literal('')),
+    turnstileToken: z.string().min(1),
 });
 
 export async function POST(req: Request) {
@@ -36,11 +37,31 @@ export async function POST(req: Request) {
             );
         }
 
-        const { name, email, subject, message, honeypot } = result.data;
+        const { name, email, subject, message, honeypot, turnstileToken } = result.data;
 
         if (honeypot) {
             // Robot detected, return fake success
             return NextResponse.json({ success: true });
+        }
+
+        // Verify Turnstile Token
+        const verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        const secret = process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+
+        const turnstileRes = await fetch(verifyEndpoint, {
+            method: 'POST',
+            body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(turnstileToken)}`,
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        const turnstileData = await turnstileRes.json();
+        if (!turnstileData.success) {
+            return NextResponse.json(
+                { error: 'Échec de la validation anti-robot. Veuillez réessayer.' },
+                { status: 400 }
+            );
         }
 
         // Save to Database

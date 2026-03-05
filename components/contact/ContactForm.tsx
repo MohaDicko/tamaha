@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from '@/components/ui/label';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const contactSchema = z.object({
     name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
@@ -17,6 +18,7 @@ const contactSchema = z.object({
     subject: z.string().min(5, "Le sujet doit être explicite"),
     message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
     honeypot: z.string().optional(), // Hidden field for anti-spam
+    turnstileToken: z.string().min(1, "Veuillez valider que vous êtes humain"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -26,7 +28,7 @@ export function ContactForm() {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
     });
 
@@ -49,6 +51,8 @@ export function ContactForm() {
 
             setSuccess(true);
             reset();
+            // Reset the internal state
+            setValue("turnstileToken", "");
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -107,6 +111,14 @@ export function ContactForm() {
                     <span>{error}</span>
                 </div>
             )}
+
+            <div className="relative z-10">
+                <Turnstile
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+                    onSuccess={(t) => setValue('turnstileToken', t, { shouldValidate: true })}
+                />
+                {errors.turnstileToken && <p className="text-destructive text-[10px] font-black uppercase tracking-widest mt-2">{errors.turnstileToken.message}</p>}
+            </div>
 
             <Button type="submit" className="w-full h-16 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform relative z-10" disabled={isSubmitting}>
                 {isSubmitting ? (

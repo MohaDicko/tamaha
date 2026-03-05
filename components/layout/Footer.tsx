@@ -2,10 +2,44 @@
 
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function Footer() {
+    const [email, setEmail] = useState("");
+    const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+    const [turnstileToken, setTurnstileToken] = useState("");
+
+    const handleNewsletter = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!email) return;
+        if (!turnstileToken) {
+            toast.error("Veuillez patienter, validation anti-robot en cours.");
+            return;
+        }
+
+        setStatus("loading");
+        try {
+            const res = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, turnstileToken })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Erreur");
+            setStatus("success");
+            toast.success("Inscription réussie !");
+            setEmail("");
+            // Token is single-use, it will be refreshed if Turnstile component is re-rendered or reset, but for footer let's keep it simple.
+        } catch (err: any) {
+            toast.error(err.message || "Erreur lors de l'inscription");
+            setStatus("idle");
+        }
+    };
+
     return (
         <footer className="bg-slate-50 border-t border-slate-100 pt-24 pb-12 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
@@ -72,16 +106,35 @@ export function Footer() {
                                 Recevez nos actualités du terrain directement dans votre boîte mail.
                             </p>
                         </div>
-                        <div className="relative group">
-                            <input
-                                type="email"
-                                placeholder="votre@email.com"
-                                className="w-full h-14 bg-white border border-slate-200 rounded-xl px-6 py-4 text-xs font-bold focus:outline-none focus:border-primary transition-colors shadow-sm"
-                            />
-                            <Button className="absolute right-2 top-2 h-10 w-10 rounded-lg p-0 bg-primary text-white">
-                                <ArrowRight size={18} />
-                            </Button>
-                        </div>
+                        <form onSubmit={handleNewsletter} className="relative group">
+                            {status === "success" ? (
+                                <div className="w-full h-14 bg-green-50 border border-green-200 text-green-700 rounded-xl px-4 flex items-center gap-3 font-bold text-xs shadow-sm">
+                                    <CheckCircle2 size={18} /> Inscription validée !
+                                </div>
+                            ) : (
+                                <>
+                                    <input
+                                        type="email"
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="votre@email.com"
+                                        disabled={status === "loading"}
+                                        className="w-full h-14 bg-white border border-slate-200 rounded-xl pl-6 pr-14 py-4 text-xs font-bold focus:outline-none focus:border-primary transition-colors shadow-sm disabled:opacity-50"
+                                    />
+                                    <Button type="submit" disabled={status === "loading"} className="absolute right-2 top-2 h-10 w-10 rounded-lg p-0 bg-primary text-white">
+                                        {status === "loading" ? <Loader2 size={18} className="animate-spin" /> : <ArrowRight size={18} />}
+                                    </Button>
+
+                                    <div className="hidden">
+                                        <Turnstile
+                                            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+                                            onSuccess={(t) => setTurnstileToken(t)}
+                                        />
+                                    </div>
+                                </>
+                            )}
+                        </form>
                     </div>
                 </div>
 
