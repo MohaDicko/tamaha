@@ -46,3 +46,46 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+
+export async function GET() {
+    try {
+        const session = await getServerSession();
+        if (!session || (session.user as any).role !== "ADMIN") {
+            return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+        }
+
+        const posts = await prisma.post.findMany({
+            orderBy: { date: 'desc' }
+        });
+
+        return NextResponse.json(posts);
+    } catch (error: any) {
+        console.error("Error fetching posts:", error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
+
+export async function DELETE(req: Request) {
+    try {
+        const session = await getServerSession();
+        if (!session || (session.user as any).role !== "ADMIN") {
+            return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+        }
+
+        const url = new URL(req.url);
+        const id = url.searchParams.get("id");
+
+        if (!id) {
+            return NextResponse.json({ error: "ID manquant" }, { status: 400 });
+        }
+
+        await prisma.post.delete({
+            where: { id }
+        });
+
+        return NextResponse.json({ success: true });
+    } catch (error: any) {
+        console.error("Error deleting post:", error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}

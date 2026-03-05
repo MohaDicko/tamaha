@@ -18,18 +18,56 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import Link from "next/link";
 
 // Mock data based on the Contentlayer structure
-const initialPosts = [
-    { slug: "status-mission-matam", title: "Bientôt une nouvelle mission à Matam !", date: "2024-02-25", format: "status", status: "Publié" },
-    { slug: "tamaha-climat", title: "Tamaha s'engage pour le climat", date: "2024-02-21", format: "article", status: "Publié" },
-    { slug: "tuto-lavage-mains", title: "Tuto : Hygiène des mains", date: "2024-02-20", format: "video", status: "Publié" },
-    { slug: "visite-centre-sante", title: "Visite au Centre de Santé de Niamana", date: "2024-02-18", format: "video", status: "Publié" },
-];
+type Post = {
+    id: string;
+    slug: string;
+    title: string;
+    date: string;
+    format: string;
+    published: boolean;
+};
 
 export default function AdminPostsPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [view, setView] = useState<"grid" | "list">("list");
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchPosts = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch("/api/admin/posts");
+            if (!res.ok) throw new Error("Erreur");
+            const data = await res.json();
+            setPosts(data);
+        } catch (error) {
+            toast.error("Impossible de charger les articles");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const deletePost = async (id: string, title: string) => {
+        if (!confirm(`T'es-tu sûr de vouloir supprimer l'article "${title}" ?`)) return;
+        try {
+            const res = await fetch(`/api/admin/posts?id=${id}`, { method: "DELETE" });
+            if (!res.ok) throw new Error("Erreur");
+            toast.success("Article supprimé");
+            setPosts((prev) => prev.filter((p) => p.id !== id));
+        } catch (error) {
+            toast.error("Erreur lors de la suppression");
+        }
+    };
+
+    const filteredPosts = posts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
         <div className="space-y-10">
@@ -39,10 +77,12 @@ export default function AdminPostsPage() {
                     <h1 className="text-3xl font-black tracking-tighter">Blog & <span className="text-primary italic">Articles</span></h1>
                     <p className="text-muted-foreground text-sm font-medium">Gérez toutes les publications du site Tamaha.</p>
                 </div>
-                <Button size="lg" className="rounded-2xl h-14 px-8 font-black uppercase tracking-widest shadow-xl shadow-primary/20 gap-3">
-                    <Plus size={20} />
-                    Nouvel Article
-                </Button>
+                <Link href="/admin/posts/new">
+                    <Button size="lg" className="rounded-2xl h-14 px-8 font-black uppercase tracking-widest shadow-xl shadow-primary/20 gap-3">
+                        <Plus size={20} />
+                        Nouvel Article
+                    </Button>
+                </Link>
             </div>
 
             {/* Toolbar */}
@@ -90,9 +130,21 @@ export default function AdminPostsPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y">
-                        {initialPosts.map((post, i) => (
+                        {loading ? (
+                            <tr>
+                                <td colSpan={5} className="px-8 py-10 text-center text-muted-foreground font-medium">
+                                    Chargement des articles...
+                                </td>
+                            </tr>
+                        ) : filteredPosts.length === 0 ? (
+                            <tr>
+                                <td colSpan={5} className="px-8 py-10 text-center text-muted-foreground font-medium">
+                                    Aucun article trouvé.
+                                </td>
+                            </tr>
+                        ) : filteredPosts.map((post, i) => (
                             <motion.tr
-                                key={post.slug}
+                                key={post.id}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.05 }}
@@ -112,24 +164,20 @@ export default function AdminPostsPage() {
                                     </span>
                                 </td>
                                 <td className="px-8 py-6 text-sm text-muted-foreground font-medium">
-                                    {post.date}
+                                    {new Date(post.date).toLocaleDateString("fr-FR")}
                                 </td>
                                 <td className="px-8 py-6">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-green-500" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-green-500">{post.status}</span>
+                                        <div className={cn("w-2 h-2 rounded-full", post.published ? "bg-green-500" : "bg-orange-500")} />
+                                        <span className={cn("text-[10px] font-black uppercase tracking-widest", post.published ? "text-green-500" : "text-orange-500")}>
+                                            {post.published ? "Publié" : "Brouillon"}
+                                        </span>
                                     </div>
                                 </td>
                                 <td className="px-8 py-6">
                                     <div className="flex items-center justify-end gap-2">
-                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary">
-                                            <Edit2 size={16} />
-                                        </Button>
-                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-destructive/10 hover:text-destructive">
+                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-destructive/10 hover:text-destructive" onClick={() => deletePost(post.id, post.title)}>
                                             <Trash2 size={16} />
-                                        </Button>
-                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl">
-                                            <MoreVertical size={16} />
                                         </Button>
                                     </div>
                                 </td>
