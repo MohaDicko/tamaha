@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/layout/Container';
@@ -110,10 +111,13 @@ export function Hero() {
                         className="relative hidden xl:block"
                     >
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-100 aspect-[4/5]">
-                            <img
-                                src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop&crop=faces"
+                            <Image
+                                src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop&crop=faces"
                                 alt="Actions humanitaires de l'association Tamaha"
-                                className="w-full h-full object-cover object-center"
+                                fill
+                                priority
+                                sizes="(max-width: 1280px) 100vw, 50vw"
+                                className="object-cover object-center"
                             />
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />

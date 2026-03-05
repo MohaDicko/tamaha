@@ -139,11 +139,16 @@ export function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                        © 2024 Association Tamaha. Tous droits réservés.
-                    </p>
-                    <div className="flex gap-8">
+                <div className="pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+                    <div className="space-y-2">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                            © {new Date().getFullYear()} Association Tamaha. Tous droits réservés.
+                        </p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                            Fait par <a href="https://sahelmultiservices.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-all">Sahel MULTISERVICES</a>
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-8">
                         {['Conditions', 'Confidentialité', 'Légal'].map(l => (
                             <Link key={l} href="#" className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors">{l}</Link>
                         ))}
