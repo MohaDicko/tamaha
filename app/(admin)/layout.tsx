@@ -15,7 +15,8 @@ import {
     LogOut,
     Plus,
     ArrowUpRight,
-    Users
+    Users,
+    Banknote
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -47,6 +48,7 @@ export default function AdminLayout({
 
     const menuItems = [
         { icon: LayoutDashboard, label: "Vue d'ensemble", href: "/admin" },
+        { icon: Banknote, label: "Dons", href: "/admin/donations" },
         { icon: Newspaper, label: "Articles", href: "/admin/posts" },
         { icon: Heart, label: "Actions", href: "/admin/actions" },
         { icon: Calendar, label: "Événements", href: "/admin/events" },
