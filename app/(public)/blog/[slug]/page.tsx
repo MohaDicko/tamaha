@@ -9,6 +9,8 @@ interface PostPageProps {
     params: { slug: string };
 }
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
     const posts = await getPosts();
     return posts.map((post: any) => ({ slug: post.slug }));

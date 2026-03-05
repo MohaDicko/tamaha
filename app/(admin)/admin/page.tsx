@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
     Users,
@@ -15,19 +16,36 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function AdminPage() {
-    const stats = [
-        { label: "Visites (30j)", value: "12,450", change: "+14%", icon: Eye, color: "text-blue-500" },
-        { label: "Nouveaux Contacts", value: "24", change: "+8%", icon: MessageSquare, color: "text-green-500" },
-        { label: "Dons Promis", value: "1,200€", change: "+22%", icon: TrendingUp, color: "text-primary" },
-        { label: "Bénéficiaires", value: "2,500+", change: "+5%", icon: Users, color: "text-orange-500" },
-    ];
+    const [statsData, setStatsData] = useState<any>(null);
+    const [activityData, setActivityData] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const recentActivity = [
-        { type: "post", title: "Nouveau forage à Matam", user: "Samba", time: "Il y a 2h", status: "Publié" },
-        { type: "contact", title: "Demande de partenariat - ONG Sahel", user: "Contact", time: "Il y a 5h", status: "En attente" },
-        { type: "event", title: "Gala annuel 2024", user: "Admin", time: "Il y a 1 jour", status: "Modifié" },
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await fetch("/api/admin/stats");
+                const data = await res.json();
+                if (data.stats) {
+                    setStatsData(data.stats);
+                    setActivityData(data.activity);
+                }
+            } catch (error) {
+                console.error("Failed to load stats", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchStats();
+    }, []);
+
+    const stats = [
+        { label: "Visites (30j)", value: loading ? "..." : "12,450", change: "+14%", icon: Eye, color: "text-blue-500" },
+        { label: "Nouveaux Contacts", value: loading ? "..." : `${statsData?.messagesCount || 0}`, change: "Actif", icon: MessageSquare, color: "text-green-500" },
+        { label: "Dons Validés", value: loading ? "..." : `${statsData?.donationsSum?.toLocaleString("fr-FR") || 0}€`, change: "Total", icon: TrendingUp, color: "text-primary" },
+        { label: "Abonnés Newsletter", value: loading ? "..." : `${statsData?.newsletterCount || 0}`, change: "Total", icon: Users, color: "text-orange-500" },
     ];
 
     return (
@@ -77,29 +95,34 @@ export default function AdminPage() {
                         <h3 className="text-xs font-black uppercase tracking-[0.2em]">Activités Récentes</h3>
                         <Button variant="link" className="text-[10px] font-black uppercase tracking-widest p-0 h-auto">Tout voir</Button>
                     </div>
-                    <div className="bg-card border-2 border-border/50 rounded-[2.5rem] overflow-hidden">
-                        {recentActivity.map((activity, i) => (
+                    <div className="bg-card border-2 border-border/50 rounded-[2.5rem] overflow-hidden min-h-[300px]">
+                        {loading ? (
+                            <div className="flex justify-center items-center h-full">Chargement...</div>
+                        ) : activityData.length === 0 ? (
+                            <div className="flex justify-center items-center h-full text-muted-foreground p-10">Aucune activité récente.</div>
+                        ) : activityData.map((activity, i) => (
                             <div
                                 key={i}
-                                className={`p-6 flex items-center justify-between hover:bg-muted/50 transition-colors ${i !== recentActivity.length - 1 ? 'border-b' : ''}`}
+                                className={`p-6 flex flex-col md:flex-row md:items-center justify-between hover:bg-muted/50 transition-colors gap-4 ${i !== activityData.length - 1 ? 'border-b' : ''}`}
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground">
+                                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground shrink-0">
                                         <Clock size={18} />
                                     </div>
                                     <div className="space-y-0.5">
                                         <p className="text-sm font-black tracking-tight">{activity.title}</p>
                                         <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">
-                                            Par {activity.user} • {activity.time}
+                                            Par {activity.user} • {new Date(activity.date).toLocaleDateString("fr-FR")}
                                         </p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${activity.status === 'Publié' ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500'
-                                        }`}>
+                                    <span className={cn("text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full whitespace-nowrap",
+                                        activity.status === 'Publié' || activity.status === 'Lu' ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500'
+                                    )}>
                                         {activity.status}
                                     </span>
-                                    <ArrowRight size={14} className="text-muted-foreground opacity-30" />
+                                    <ArrowRight size={14} className="text-muted-foreground opacity-30 hidden md:block" />
                                 </div>
                             </div>
                         ))}

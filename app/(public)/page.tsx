@@ -13,6 +13,8 @@ export const metadata = {
     description: 'Tamaha est une association engagée pour la santé, l\'éducation et la protection des plus vulnérables au Sénégal.',
 };
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export default async function Home() {
     // Get latest 3 posts for the highlights
     const allPosts = await getPosts();
