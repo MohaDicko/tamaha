@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Heart, CreditCard, Landmark, ArrowRight, CheckCircle2, ShieldCheck, Zap, Globe, Shield, Lock } from 'lucide-react';
+import { Heart, CreditCard, Landmark, ArrowRight, CheckCircle2, ShieldCheck, Zap, Globe, Shield, Lock, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 const PRESETS = [
     { amount: 10, label: "Un kit hygiène", icon: "🧼" },
@@ -21,6 +22,7 @@ export function DonationForm() {
     const [method, setMethod] = useState<'card' | 'transfer' | 'mobile' | null>(null);
     const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
     const [mobileProvider, setMobileProvider] = useState<'orange' | 'wave' | null>(null);
+    const [loadingStripe, setLoadingStripe] = useState(false);
 
     const handleAmountClick = (val: number) => {
         setAmount(val);
@@ -230,8 +232,47 @@ export function DonationForm() {
                                                 Transaction sécurisée via <strong className="text-white">Stripe™</strong>. Patientez quelques instants.
                                             </p>
                                         </div>
-                                        <Button size="lg" className="w-full h-20 bg-[#635BFF] hover:bg-[#534bdf] font-black uppercase tracking-[0.2em] text-[11px] rounded-[1.5rem] shadow-2xl shadow-blue-500/20 transition-all flex items-center justify-center gap-4">
-                                            Finaliser sur Stripe <ArrowRight size={20} />
+                                        <Button
+                                            size="lg"
+                                            className="w-full h-20 bg-[#635BFF] hover:bg-[#534bdf] font-black uppercase tracking-[0.2em] text-[11px] rounded-[1.5rem] shadow-2xl shadow-blue-500/20 transition-all flex items-center justify-center gap-4"
+                                            disabled={loadingStripe}
+                                            onClick={async () => {
+                                                try {
+                                                    setLoadingStripe(true);
+
+                                                    // 1. Enregistrer l'intention de don en PENDING
+                                                    await fetch('/api/donate', {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({ amount: Number(amount), method: 'card', frequency })
+                                                    });
+
+                                                    // 2. Créer la session Stripe
+                                                    const res = await fetch('/api/stripe/checkout', {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({
+                                                            amount: Number(amount),
+                                                            frequency,
+                                                            return_url: window.location.href // Revenir sur la page courante
+                                                        })
+                                                    });
+
+                                                    const data = await res.json();
+
+                                                    if (data.url) {
+                                                        window.location.href = data.url; // Redirection vers Stripe
+                                                    } else {
+                                                        throw new Error(data.error || "Erreur Stripe");
+                                                    }
+                                                } catch (err) {
+                                                    console.error(err);
+                                                    toast.error("Le service de paiement est temporairement indisponible.");
+                                                    setLoadingStripe(false);
+                                                }
+                                            }}
+                                        >
+                                            {loadingStripe ? <Loader2 size={24} className="animate-spin" /> : "Finaliser sur Stripe"} <ArrowRight size={20} />
                                         </Button>
                                     </div>
                                 ) : method === 'mobile' ? (
@@ -410,6 +451,6 @@ export function DonationForm() {
                     Tamaha est une association reconnue d'intérêt général • Reçu fiscal émis automatiquement
                 </p>
             </div>
-        </div>
+        </div >
     );
 }
