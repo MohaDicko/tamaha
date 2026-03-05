@@ -25,6 +25,11 @@ const securityHeaders = [
     {
         key: 'Permissions-Policy',
         value: 'camera=(), microphone=(), geolocation=()'
+    },
+    {
+        key: 'Content-Security-Policy',
+        // Allow scripts from self and Stripe, allow data: images, allow connections to Stripe and Vercel/Supabase APIs
+        value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.stripe.com https://*.supabase.co wss://*.supabase.co; frame-src 'self' https://js.stripe.com;"
     }
 ];
 
