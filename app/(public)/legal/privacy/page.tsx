@@ -2,7 +2,7 @@
 import { Container } from '@/components/layout/Container';
 
 export const metadata = {
-    title: 'Confidentialité | Tamaha',
+    title: 'Confidentialité | Tammaha',
 };
 
 export default function Privacy() {
@@ -19,7 +19,7 @@ export default function Privacy() {
                 <p>Ce site utilise uniquement des cookies techniques nécessaires à son fonctionnement. Aucun cookie publicitaire n'est déposé sans votre consentement.</p>
 
                 <h2>Vos droits</h2>
-                <p>Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous à l'adresse dpo@tamaha.org.</p>
+                <p>Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous à l'adresse dpo@tammaha.org.</p>
             </div>
         </Container>
     );

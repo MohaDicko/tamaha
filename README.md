@@ -1,7 +1,7 @@
 
-# 🌍 Tamaha Association Website
+# 🌍 Tammaha Association Website
 
-Site web officiel de l'association Tamaha, réalisé avec Next.js 14, TypeScript, TailwindCSS et Contentlayer.
+Site web officiel de l'association Tammaha, réalisé avec Next.js 14, TypeScript, TailwindCSS et Contentlayer.
 
 ## 🚀 Démarrage Rapide
 
@@ -24,7 +24,7 @@ Site web officiel de l'association Tamaha, réalisé avec Next.js 14, TypeScript
 
     # Email (Resend)
     RESEND_API_KEY="re_123456789"
-    CONTACT_TO_EMAIL="contact@tamaha.org"
+    CONTACT_TO_EMAIL="contact@tammaha.org"
     ```
 
 3.  **Lancer le serveur de développement**

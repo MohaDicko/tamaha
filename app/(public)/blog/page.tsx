@@ -4,7 +4,7 @@ import { MediaFeed } from '@/components/blog/MediaFeed';
 import { Container } from '@/components/layout/Container';
 
 export const metadata = {
-    title: 'Actualités | Tamaha',
+    title: 'Actualités | Tammaha',
     description: 'Suivez nos actions, nos vidéos et nos albums photos sur le terrain.',
 };
 

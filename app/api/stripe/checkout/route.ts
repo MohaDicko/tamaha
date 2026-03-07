@@ -1,11 +1,22 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { rateLimit } from "@/lib/rate-limit";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
     apiVersion: "2026-02-25.clover" as any,
 });
 
 export async function POST(req: Request) {
+    const ip = req.headers.get('x-forwarded-for') || 'unknown';
+    const limit = rateLimit(ip, 5); // Max 5 checkouts per 10min
+
+    if (limit.isRateLimited) {
+        return NextResponse.json(
+            { error: "Trop de tentatives de paiement. Veuillez réessayer plus tard." },
+            { status: 429 }
+        );
+    }
+
     try {
         const { amount, frequency, return_url } = await req.json();
 
@@ -29,9 +40,9 @@ export async function POST(req: Request) {
                     price_data: {
                         currency: "eur",
                         product_data: {
-                            name: "Don à l'Association Tamaha",
+                            name: "Don à l'Association Tammaha",
                             description: frequency === "monthly" ? "Don mensuel" : "Don ponctuel",
-                            images: ["https://tamaha.vercel.app/logo.png"], // Remplacer par un vrai lien plus tard
+                            images: ["https://tammaha.vercel.app/logo.png"], // Remplacer par un vrai lien plus tard
                         },
                         unit_amount: unitAmount,
                         // Stripe nécessite une configuration produit différente pour les abonnements

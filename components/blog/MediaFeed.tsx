@@ -11,13 +11,6 @@ import { motion } from 'framer-motion';
 export function MediaFeed({ posts }: { posts: any[] }) {
     const [filter, setFilter] = useState<'all' | 'article' | 'video' | 'status'>('all');
     const [visibleCount, setVisibleCount] = useState(6);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        // Simulate initial load for smooth UX
-        const timer = setTimeout(() => setIsLoading(false), 800);
-        return () => clearTimeout(timer);
-    }, []);
 
     const filteredPosts = posts.filter(post =>
         filter === 'all' ? true : post.format === filter
@@ -27,8 +20,6 @@ export function MediaFeed({ posts }: { posts: any[] }) {
 
     const handleFilterChange = (type: 'all' | 'article' | 'video' | 'status') => {
         setFilter(type);
-        setIsLoading(true);
-        setTimeout(() => setIsLoading(false), 400);
     };
 
     return (
@@ -51,43 +42,31 @@ export function MediaFeed({ posts }: { posts: any[] }) {
                 ))}
             </div>
 
-            {/* Grid with Skeleton Support */}
+            {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {isLoading ? (
-                    Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="space-y-4 animate-pulse">
-                            <div className="aspect-[16/10] bg-muted rounded-3xl" />
-                            <div className="space-y-2">
-                                <div className="h-4 bg-muted rounded-full w-3/4" />
-                                <div className="h-4 bg-muted rounded-full w-1/2" />
-                            </div>
-                        </div>
+                {displayedPosts.length > 0 ? (
+                    displayedPosts.map((post, i) => (
+                        <motion.div
+                            key={post.slug}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: i * 0.05 }}
+                        >
+                            <MediaPostCard post={post} />
+                        </motion.div>
                     ))
                 ) : (
-                    displayedPosts.length > 0 ? (
-                        displayedPosts.map((post, i) => (
-                            <motion.div
-                                key={post.slug}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.4, delay: i * 0.05 }}
-                            >
-                                <MediaPostCard post={post} />
-                            </motion.div>
-                        ))
-                    ) : (
-                        <div className="text-center py-24 bg-muted/20 rounded-[2rem] border-2 border-dashed border-muted-foreground/20 col-span-full">
-                            <div className="p-6 bg-background rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-xl">
-                                <LayoutGrid className="text-muted-foreground" size={24} />
-                            </div>
-                            <h3 className="text-xl font-black mb-2">Pas de contenu</h3>
-                            <p className="text-muted-foreground font-medium">Aucun contenu trouvé dans cette catégorie pour le moment.</p>
+                    <div className="text-center py-24 bg-muted/20 rounded-[2rem] border-2 border-dashed border-muted-foreground/20 col-span-full">
+                        <div className="p-6 bg-background rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                            <LayoutGrid className="text-muted-foreground" size={24} />
                         </div>
-                    )
+                        <h3 className="text-xl font-black mb-2">Pas de contenu</h3>
+                        <p className="text-muted-foreground font-medium">Aucun contenu trouvé dans cette catégorie pour le moment.</p>
+                    </div>
                 )}
             </div>
 
-            {!isLoading && displayedPosts.length < filteredPosts.length && (
+            {displayedPosts.length < filteredPosts.length && (
                 <div className="flex justify-center pt-8">
                     <Button
                         variant="outline"

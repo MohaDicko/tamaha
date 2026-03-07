@@ -54,10 +54,10 @@ export function Navbar() {
                 {/* ── Logo ── */}
                 <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
                     <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-slate-200 group-hover:border-primary/50 transition-all shadow-sm">
-                        <img src="/logo.jpg" alt="Logo Tamaha" className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-500" />
+                        <img src="/logo.jpg" alt="Logo Tammaha" className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-500" />
                     </div>
                     <div className="flex flex-col leading-none">
-                        <span className="text-base font-bold tracking-tight text-slate-900">TAMAHA</span>
+                        <span className="text-base font-bold tracking-tight text-slate-900">TAMMAHA</span>
                         <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-primary">Solidarité</span>
                     </div>
                 </Link>

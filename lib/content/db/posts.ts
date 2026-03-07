@@ -9,8 +9,9 @@ export async function getPosts() {
 }
 
 export async function getPost(slug: string) {
-    return await prisma.post.findUnique({
-        where: { slug },
+    // ✅ Filtre sur published pour éviter la fuite de brouillons
+    return await prisma.post.findFirst({
+        where: { slug, published: true },
     });
 }
 

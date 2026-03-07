@@ -24,7 +24,7 @@ const Post = defineDocumentType(() => ({
         author: {
             type: 'string',
             required: false,
-            default: 'Tamaha Team'
+            default: 'Tammaha Team'
         },
         authorAvatar: { type: 'string', required: false },
     },

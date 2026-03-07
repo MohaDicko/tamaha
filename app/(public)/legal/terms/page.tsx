@@ -2,7 +2,7 @@
 import { Container } from '@/components/layout/Container';
 
 export const metadata = {
-    title: 'Mentions Légales | Tamaha',
+    title: 'Mentions Légales | Tammaha',
 };
 
 export default function Terms() {
@@ -13,10 +13,10 @@ export default function Terms() {
             <div className="space-y-4">
                 <div>
                     <h2 className="text-xl font-bold">Éditeur</h2>
-                    <p>Association TAMAHA</p>
+                    <p>Association TAMMAHA</p>
                     <p>Numéro RNA : W123456789</p>
                     <p>Siège social : 12 rue de la République, 75001 Paris, France</p>
-                    <p>Contact : contact@tamaha.org</p>
+                    <p>Contact : contact@tammaha.org</p>
                 </div>
 
                 <div>

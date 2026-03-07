@@ -3,7 +3,7 @@ import { PartnersGrid } from '@/components/sections/PartnersGrid';
 import { Container } from '@/components/layout/Container';
 
 export const metadata = {
-    title: 'Nos Partenaires | Tamaha',
+    title: 'Nos Partenaires | Tammaha',
 };
 
 export default function Partners() {

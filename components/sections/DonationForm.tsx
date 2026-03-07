@@ -9,20 +9,31 @@ import { Heart, CreditCard, Landmark, ArrowRight, CheckCircle2, ShieldCheck, Zap
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
+// ✅ Montants en FCFA (monnaie locale des bénéficiaires)
 const PRESETS = [
-    { amount: 10, label: "Un kit hygiène", icon: "🧼" },
-    { amount: 30, label: "Un kit scolaire", icon: "📚" },
-    { amount: 50, label: "Repas - 1 semaine", icon: "🍱" },
-    { amount: 100, label: "Soin médical", icon: "🏥" },
+    { amount: 2500, label: "Un kit hygiène", icon: "🧼" },
+    { amount: 5000, label: "Un kit scolaire", icon: "📚" },
+    { amount: 10000, label: "Repas – 1 semaine", icon: "🍱" },
+    { amount: 25000, label: "Soin médical", icon: "🏥" },
 ];
 
+// Numéro IBAN réel (à remplacer par le vrai en production)
+const IBAN = "SN76 0001 2345 6789 0123 4567";
+
 export function DonationForm() {
-    const [amount, setAmount] = useState<number | string>(30);
+    const [amount, setAmount] = useState<number | string>(5000);
     const [step, setStep] = useState(1);
     const [method, setMethod] = useState<'card' | 'transfer' | 'mobile' | null>(null);
     const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
     const [mobileProvider, setMobileProvider] = useState<'orange' | 'wave' | null>(null);
     const [loadingStripe, setLoadingStripe] = useState(false);
+    const [ibanCopied, setIbanCopied] = useState(false);
+
+    const copyIBAN = () => {
+        navigator.clipboard.writeText(IBAN.replace(/\s/g, ''));
+        setIbanCopied(true);
+        setTimeout(() => setIbanCopied(false), 2500);
+    };
 
     const handleAmountClick = (val: number) => {
         setAmount(val);
@@ -123,7 +134,7 @@ export function DonationForm() {
                                         >
                                             <span className="text-4xl block group-hover:scale-125 transition-transform duration-700">{p.icon}</span>
                                             <div className="text-center">
-                                                <span className="text-2xl font-black block tracking-tighter">{p.amount}€</span>
+                                                <span className="text-2xl font-black block tracking-tighter">{p.amount.toLocaleString('fr-FR')} FCFA</span>
                                                 <span className="text-[8px] uppercase font-black text-white/30 leading-tight block mt-2 tracking-widest">{p.label}</span>
                                             </div>
                                             {amount === p.amount && (
@@ -137,13 +148,13 @@ export function DonationForm() {
 
                                 <div className="space-y-8">
                                     <div className="relative group">
-                                        <div className="absolute left-8 top-1/2 -translate-y-1/2 font-black text-3xl text-white/20 group-focus-within:text-primary transition-colors">€</div>
+                                        <div className="absolute left-8 top-1/2 -translate-y-1/2 font-black text-2xl text-white/20 group-focus-within:text-primary transition-colors">FCFA</div>
                                         <Input
                                             type="number"
                                             value={amount}
                                             onChange={(e) => setAmount(e.target.value)}
-                                            placeholder="Montant Personnalisé"
-                                            className="h-24 pl-16 text-3xl font-black bg-white/5 border-2 border-white/5 focus:border-primary/50 rounded-[2rem] transition-all text-white placeholder:text-white/10"
+                                            placeholder="Montant personnalisé"
+                                            className="h-24 pl-24 text-3xl font-black bg-white/5 border-2 border-white/5 focus:border-primary/50 rounded-[2rem] transition-all text-white placeholder:text-white/10"
                                         />
                                     </div>
 
@@ -202,7 +213,7 @@ export function DonationForm() {
                                         Retour
                                     </Button>
                                     <Button className="flex-1 h-20 rounded-[1.5rem] font-black uppercase tracking-[0.2em] text-[11px] shadow-2xl shadow-primary/20 bg-white text-black hover:bg-primary hover:text-white transition-all" onClick={nextStep} disabled={!method}>
-                                        Confirmer le Don de {amount}€
+                                        Confirmer — {Number(amount).toLocaleString('fr-FR')} FCFA
                                     </Button>
                                 </div>
                             </motion.div>
@@ -241,20 +252,23 @@ export function DonationForm() {
                                                     setLoadingStripe(true);
 
                                                     // 1. Enregistrer l'intention de don en PENDING
-                                                    await fetch('/api/donate', {
+                                                    const donateRes = await fetch('/api/donate', {
                                                         method: 'POST',
                                                         headers: { 'Content-Type': 'application/json' },
                                                         body: JSON.stringify({ amount: Number(amount), method: 'card', frequency })
                                                     });
+                                                    const donateData = await donateRes.json();
 
-                                                    // 2. Créer la session Stripe
+                                                    // 2. Créer la session Stripe (montant converti en EUR : 1€ ≈ 655 FCFA)
+                                                    const amountEUR = Math.max(1, Math.round(Number(amount) / 655));
+                                                    const successUrl = `${window.location.origin}/donate/success?ref=${donateData.reference}&amount=${amount}&method=card`;
                                                     const res = await fetch('/api/stripe/checkout', {
                                                         method: 'POST',
                                                         headers: { 'Content-Type': 'application/json' },
                                                         body: JSON.stringify({
-                                                            amount: Number(amount),
+                                                            amount: amountEUR,
                                                             frequency,
-                                                            return_url: window.location.href // Revenir sur la page courante
+                                                            return_url: successUrl
                                                         })
                                                     });
 
@@ -326,38 +340,45 @@ export function DonationForm() {
                                                 </div>
                                                 <div className="space-y-4">
                                                     <p className="text-xl font-bold leading-relaxed text-white/80">
-                                                        Transférez <span className="text-white font-black underline decoration-primary underline-offset-8">{amount}€</span> au numéro officiel TAMAHA:
+                                                        Transférez <span className="text-white font-black underline decoration-primary underline-offset-8">{Number(amount).toLocaleString('fr-FR')} FCFA</span> au numéro officiel TAMMAHA :
                                                     </p>
                                                     <div className="bg-white/10 p-6 rounded-2xl border border-white/10 text-center">
-                                                        <strong className="text-4xl font-black tracking-[0.15em] block text-primary">85 05 02 02</strong>
+                                                        <strong className="text-4xl font-black tracking-[0.15em] block text-primary">+223 85 05 02 02</strong>
                                                     </div>
                                                     <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30 pt-4">
-                                                        <span>Nom du Compte: Assoc TAMAHA</span>
-                                                        <span>Pays: Mali / Sénégal</span>
+                                                        <span>Compte : Assoc TAMMAHA</span>
+                                                        <span>Mali / Sénégal</span>
                                                     </div>
                                                 </div>
                                                 <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20 space-y-4">
                                                     <p className="text-[11px] font-medium leading-relaxed italic text-primary/80">
-                                                        Une fois l'envoi terminé, envoyez-nous la référence par WhatsApp. Nos équipes valideront l'impact immédiatement.
+                                                        Une fois l'envoi terminé, cliquez sur le bouton ci-dessous pour envoyer votre référence par WhatsApp.
                                                     </p>
                                                     <Button
                                                         onClick={async () => {
                                                             try {
+                                                                // ✅ Enregistrement en DB + récupération de la référence
                                                                 const res = await fetch('/api/donate', {
                                                                     method: 'POST',
                                                                     headers: { 'Content-Type': 'application/json' },
                                                                     body: JSON.stringify({ amount: Number(amount), method: 'mobile', provider: mobileProvider, frequency })
                                                                 });
-                                                                let ref = '';
-                                                                if (res.ok) {
-                                                                    const data = await res.json();
-                                                                    ref = data.reference;
-                                                                }
+                                                                const data = await res.json();
+                                                                const ref = data.reference || '';
 
-                                                                const text = encodeURIComponent(`Bonjour l'équipe Tamaha ! Je viens de faire un don de ${amount}€ via ${mobileProvider === 'orange' ? 'Orange Money' : 'Wave'}. Voici la référence de la transaction : `);
+                                                                const text = encodeURIComponent(
+                                                                    `Bonjour Tammaha ! Don de ${Number(amount).toLocaleString('fr-FR')} FCFA via ${mobileProvider === 'orange' ? 'Orange Money' : 'Wave'
+                                                                    }. Référence : ${ref}. Merci !`
+                                                                );
                                                                 window.open(`https://wa.me/22385050202?text=${text}`, '_blank');
+
+                                                                // ✅ Redirection vers la page de succès
+                                                                if (data.successUrl) {
+                                                                    setTimeout(() => { window.location.href = data.successUrl; }, 1500);
+                                                                }
                                                             } catch (err) {
-                                                                console.error("Donation tracking error", err);
+                                                                console.error('Donation tracking error', err);
+                                                                toast.error('Erreur lors de l\'enregistrement du don.');
                                                             }
                                                         }}
                                                         className="w-full h-12 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2"
@@ -389,31 +410,49 @@ export function DonationForm() {
                                             <div className="grid grid-cols-1 gap-10 text-sm">
                                                 <div className="space-y-2">
                                                     <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Bénéficiaire Officiel</span>
-                                                    <p className="font-black text-2xl uppercase tracking-tight text-white/90">Association TAMAHA SOLIDARITÉ</p>
+                                                    <p className="font-black text-2xl uppercase tracking-tight text-white/90">Association TAMMAHA SOLIDARITÉ</p>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Coordonnées IBAN (Sénégal)</span>
-                                                    <div className="flex items-center justify-between p-6 bg-black/40 rounded-2xl border border-white/5">
-                                                        <p className="font-black text-xl tracking-[0.1em] text-primary">SN76 1234 5678 9012 3456</p>
-                                                        <Button variant="ghost" size="sm" className="h-10 px-5 rounded-xl text-[9px] font-black uppercase tracking-widest bg-white/10 border border-white/10 hover:bg-primary hover:text-white text-white/60">Copier</Button>
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Coordonnées IBAN</span>
+                                                    <div className="flex items-center justify-between p-6 bg-black/40 rounded-2xl border border-white/5 gap-4">
+                                                        <p className="font-black text-lg tracking-[0.1em] text-primary break-all">{IBAN}</p>
+                                                        {/* ✅ Bouton Copier fonctionnel */}
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            className="shrink-0 h-10 px-5 rounded-xl text-[9px] font-black uppercase tracking-widest bg-white/10 border border-white/10 hover:bg-primary hover:text-white text-white/60 transition-all"
+                                                            onClick={copyIBAN}
+                                                        >
+                                                            {ibanCopied ? '✓ Copié !' : 'Copier'}
+                                                        </Button>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="pt-8 border-t border-white/10">
-                                                <div className="flex items-center justify-between">
-                                                    <div className="space-y-2">
-                                                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Référence Transaction</span>
-                                                        <p className="font-black text-3xl italic tracking-tighter text-white">DON-TAMAHA-{Math.floor(Math.random() * 90000) + 10000}</p>
-                                                    </div>
-                                                    <Globe size={40} className="text-white/5 group-hover:text-primary/20 transition-colors duration-1000" />
-                                                </div>
+                                                {/* ✅ Virement : enregistrement en DB + redirection /donate/success */}
+                                                <Button
+                                                    className="w-full h-14 rounded-2xl font-black uppercase tracking-widest text-[10px] bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 transition-all"
+                                                    onClick={async () => {
+                                                        try {
+                                                            const res = await fetch('/api/donate', {
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                body: JSON.stringify({ amount: Number(amount), method: 'transfer', frequency })
+                                                            });
+                                                            const data = await res.json();
+                                                            if (data.successUrl) {
+                                                                window.location.href = data.successUrl;
+                                                            }
+                                                        } catch (err) {
+                                                            toast.error('Erreur lors de l\'enregistrement.');
+                                                        }
+                                                    }}
+                                                >
+                                                    Confirmer l'intention de virement
+                                                </Button>
                                             </div>
                                         </div>
-
-                                        <Button variant="outline" className="w-full h-16 rounded-2xl font-black uppercase tracking-widest text-[9px] border-white/5 bg-white/5 text-white/40 hover:text-white" onClick={() => setStep(1)}>
-                                            Fermer la Fenêtre Securisée
-                                        </Button>
                                     </div>
                                 )}
                             </motion.div>
@@ -448,7 +487,7 @@ export function DonationForm() {
             <div className="mt-8 text-center flex items-center justify-center gap-3 opacity-30">
                 <Shield size={14} className="text-primary" />
                 <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white">
-                    Tamaha est une association reconnue d'intérêt général • Reçu fiscal émis automatiquement
+                    Tammaha est une association reconnue d'intérêt général • Reçu fiscal émis automatiquement
                 </p>
             </div>
         </div >

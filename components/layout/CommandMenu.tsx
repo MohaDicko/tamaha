@@ -98,7 +98,7 @@ export function CommandMenu() {
                         </div>
                         <div className="flex items-center gap-1">
                             <Search size={10} />
-                            <span>Propulsé par Tamaha Tech</span>
+                            <span>Propulsé par Tammaha Tech</span>
                         </div>
                     </div>
                 </div>

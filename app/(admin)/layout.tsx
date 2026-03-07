@@ -65,7 +65,7 @@ export default function AdminLayout({
                         <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground font-black text-xl shadow-lg shadow-primary/20">
                             T
                         </div>
-                        <span className="font-black text-xl tracking-tighter italic italic">TAMAHA</span>
+                        <span className="font-black text-xl tracking-tighter italic italic">TAMMAHA</span>
                     </Link>
                 </div>
 
@@ -92,7 +92,7 @@ export default function AdminLayout({
                         </div>
                         <div className="flex flex-col">
                             <span className="text-[10px] font-black uppercase tracking-widest">Admin</span>
-                            <span className="text-[9px] text-muted-foreground font-medium truncate max-w-[120px]">admin@tamaha.org</span>
+                            <span className="text-[9px] text-muted-foreground font-medium truncate max-w-[120px]">admin@tammaha.org</span>
                         </div>
                     </div>
                     <Button

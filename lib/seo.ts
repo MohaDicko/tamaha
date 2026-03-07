@@ -3,10 +3,10 @@ import { Metadata } from 'next';
 import { env } from './env';
 
 export const siteConfig = {
-    title: 'Tamaha Association',
-    description: 'Tamaha est une association dédiée au développement, à la solidarité et à l\'éducation.',
+    title: 'Tammaha Association',
+    description: 'Tammaha est une association dédiée au développement, à la solidarité et à l\'éducation.',
     url: env.NEXT_PUBLIC_SITE_URL,
-    twitter: '@tamaha_asso',
+    twitter: '@tammaha_asso',
 };
 
 export function constructMetadata({

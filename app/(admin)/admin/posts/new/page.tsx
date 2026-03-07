@@ -88,7 +88,7 @@ export default function NewPostPage() {
                     </Link>
                     <div className="space-y-1">
                         <h1 className="text-3xl font-black tracking-tighter">Nouvelle <span className="text-primary italic">Publication</span></h1>
-                        <p className="text-muted-foreground text-sm font-medium italic">Partagez les actualités de Tamaha avec le monde.</p>
+                        <p className="text-muted-foreground text-sm font-medium italic">Partagez les actualités de Tammaha avec le monde.</p>
                     </div>
                 </div>
                 <Button

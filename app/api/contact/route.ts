@@ -76,15 +76,44 @@ export async function POST(req: Request) {
 
         if (resend && env.CONTACT_TO_EMAIL) {
             try {
+                // Email de notification interne à l'équipe Tammaha
                 await resend.emails.send({
-                    from: 'Tamaha Contact <onboarding@resend.dev>',
+                    from: 'Tammaha Contact <onboarding@resend.dev>',
                     to: env.CONTACT_TO_EMAIL,
-                    subject: `[Contact Tamaha] ${subject}`,
+                    subject: `[Contact Tammaha] ${subject}`,
                     reply_to: email,
                     text: `Nouveau message de contact\n\nNom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
                 });
+
+                // ✅ Email de confirmation automatique à l'expéditeur
+                await resend.emails.send({
+                    from: 'Tammaha <onboarding@resend.dev>',
+                    to: email,
+                    subject: `Votre message a bien été reçu — Tammaha`,
+                    html: `
+                        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 24px;">
+                            <h2 style="font-size: 22px; font-weight: 900; margin-bottom: 8px;">Merci, ${name} !</h2>
+                            <p style="color: #555; line-height: 1.6;">
+                                Nous avons bien reçu votre message concernant : <strong>${subject}</strong>.
+                            </p>
+                            <p style="color: #555; line-height: 1.6;">
+                                L'équipe Tammaha vous répondra dans les meilleurs délais, généralement sous 48h ouvrées.
+                            </p>
+                            <div style="background: #f5f5f5; border-radius: 12px; padding: 16px; margin: 20px 0; border-left: 4px solid #000;">
+                                <p style="margin: 0; font-size: 13px; color: #888; font-style: italic;">"${message.substring(0, 200)}${message.length > 200 ? '...' : ''}"</p>
+                            </div>
+                            <p style="color: #555; line-height: 1.6;">
+                                En attendant, n'hésitez pas à découvrir nos actions sur <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://tammaha.org'}" style="color: #000; font-weight: bold;">notre site</a>.
+                            </p>
+                            <p style="font-size: 12px; color: #aaa; margin-top: 32px;">
+                                Association Tammaha · Niamana Dougoukoro · Ce message est envoyé automatiquement.
+                            </p>
+                        </div>
+                    `,
+                });
             } catch (emailError) {
                 console.error('Resend Error:', emailError);
+                // On ne bloque pas si l'email échoue — le message est déjà en DB
             }
         }
 

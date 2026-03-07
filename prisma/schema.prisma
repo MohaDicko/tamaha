@@ -22,7 +22,7 @@ model Post {
   format       String   @default("article") // 'article', 'video', 'gallery', 'status'
   videoUrl     String?
   images       String   @default("[]") // stored as JSON string
-  author       String   @default("Tamaha Team")
+  author       String   @default("Tammaha Team")
   authorAvatar String?
   published    Boolean  @default(true)
   createdAt    DateTime @default(now())

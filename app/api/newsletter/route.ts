@@ -2,10 +2,21 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
+import { rateLimit } from "@/lib/rate-limit";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
+  const ip = req.headers.get('x-forwarded-for') || 'unknown';
+  const limit = rateLimit(ip, 3); // Max 3 per 10min
+
+  if (limit.isRateLimited) {
+    return NextResponse.json(
+      { error: "Trop de tentatives. Veuillez réessayer plus tard." },
+      { status: 429 }
+    );
+  }
+
   try {
     const { email, turnstileToken } = await req.json();
 
@@ -49,9 +60,9 @@ export async function POST(req: Request) {
     // Pour cette démo, on simule l'envoi d'un mail de bienvenue
 
     await resend.emails.send({
-      from: "Tamaha <onboarding@resend.dev>", // Utilisez votre domaine vérifié en prod
+      from: "Tammaha <onboarding@resend.dev>", // Utilisez votre domaine vérifié en prod
       to: email,
-      subject: "Bienvenue dans la communauté Tamaha ! 🌍",
+      subject: "Bienvenue dans la communauté Tammaha ! 🌍",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
           <h1 style="color: #000; text-align: center;">Merci de nous avoir rejoints !</h1>
@@ -67,7 +78,7 @@ export async function POST(req: Request) {
             </ul>
           </div>
           <p style="font-size: 12px; color: #999; text-align: center;">
-            Association Tamaha • Ensemble pour un impact durable
+            Association Tammaha • Ensemble pour un impact durable
           </p>
         </div>
       `,

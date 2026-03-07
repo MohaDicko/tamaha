@@ -55,7 +55,7 @@ export function PartnersGrid() {
 
                 <div className="mt-20 text-center opacity-20 hover:opacity-100 transition-opacity duration-1000">
                     <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white">
-                        +50 organisations locales et internationales collaborent avec Tamaha
+                        +50 organisations locales et internationales collaborent avec Tammaha
                     </p>
                 </div>
             </Container>

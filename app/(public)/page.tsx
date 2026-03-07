@@ -9,11 +9,11 @@ import { LatestPosts } from '@/components/sections/LatestPosts';
 import { getPosts } from '@/lib/content';
 
 export const metadata = {
-    title: 'Accueil | Tamaha - Agir pour le développement et la solidarité',
-    description: 'Tamaha est une association engagée pour la santé, l\'éducation et la protection des plus vulnérables au Sénégal.',
+    title: 'Accueil | Tammaha - Agir pour le développement et la solidarité',
+    description: 'Tammaha est une association engagée pour la santé, l\'éducation et la protection des plus vulnérables au Sénégal.',
 };
 
-export const revalidate = 60; // Revalidate every 60 seconds
+export const revalidate = 3600; // Revalidate every 1 hour
 
 export default async function Home() {
     // Get latest 3 posts for the highlights

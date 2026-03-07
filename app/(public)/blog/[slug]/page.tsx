@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PostPageProps) {
             description: post.excerpt,
             type: 'article',
             publishedTime: post.date.toISOString(),
-            authors: ['Tamaha'],
+            authors: ['Tammaha'],
             images: [
                 {
                     url: post.cover || '/og-image.jpg',
@@ -63,7 +63,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 </div>
                 <div className="mt-16 pt-8 border-t">
                     <p className="text-center font-bold text-muted-foreground italic">
-                        Publié par l'équipe Tamaha le {new Date(post.date).toLocaleDateString('fr-FR')}
+                        Publié par l'équipe Tammaha le {new Date(post.date).toLocaleDateString('fr-FR')}
                     </p>
                 </div>
             </Container>

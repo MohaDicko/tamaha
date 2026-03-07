@@ -73,7 +73,7 @@ export default function LoginPage() {
                                 ADMIN <span className="text-primary italic">PANEL</span>
                             </h1>
                             <p className="text-muted-foreground text-sm font-medium uppercase tracking-[0.2em] opacity-60">
-                                Association Tamaha
+                                Association Tammaha
                             </p>
                         </div>
                     </div>

@@ -4,16 +4,16 @@ import { prisma } from '@/lib/prisma';
 import { rateLimit } from '@/lib/rate-limit';
 
 const donationSchema = z.object({
-    amount: z.number().positive(),
-    method: z.string(),
-    provider: z.string().nullable(),
-    frequency: z.string(),
+    amount: z.number().positive().max(10_000_000),
+    method: z.enum(['card', 'mobile', 'transfer']),
+    provider: z.string().nullable().optional(),
+    frequency: z.enum(['once', 'monthly']),
 });
 
 export async function POST(req: Request) {
     const ip = req.headers.get('x-forwarded-for') || 'unknown';
 
-    // Prevent spam (max 5 donations initiated per hour per IP)
+    // Limite : 5 tentatives par heure par IP
     const limit = rateLimit(`donate_${ip}`, 5, 3600000);
     if (limit.isRateLimited) {
         return NextResponse.json({ error: 'Trop de requêtes. Veuillez réessayer plus tard.' }, { status: 429 });
@@ -29,24 +29,27 @@ export async function POST(req: Request) {
 
         const { amount, method, provider, frequency } = result.data;
 
-        // Save pending donation to track intent
+        // Enregistre l'intention de don (PENDING)
         const donation = await prisma.donation.create({
             data: {
                 amount,
                 method,
                 provider: provider || null,
                 frequency,
-                status: 'PENDING'
-            }
+                status: 'PENDING',
+            },
         });
 
-        // Here you would typically integrate with Stripe for card payments
-        // For mobile and transfer, they are handled entirely on the frontend via manual instructions
+        const reference = `DON-TAMMAHA-${donation.id.slice(-6).toUpperCase()}`;
+
+        // ✅ URL de redirection vers la page de succès avec récapitulatif
+        const successUrl = `/donate/success?ref=${encodeURIComponent(reference)}&amount=${amount}&method=${encodeURIComponent(provider || method)}`;
 
         return NextResponse.json({
             success: true,
             id: donation.id,
-            reference: `DON-TAMAHA-${donation.id.slice(-5).toUpperCase()}`
+            reference,
+            successUrl, // Le front redirige vers cette URL après confirmation
         });
     } catch (error) {
         console.error('Donation API Error:', error);

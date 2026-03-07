@@ -53,7 +53,7 @@ export function Footer() {
                             <div className="h-10 w-10 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
                                 <img src="/logo.jpg" alt="Logo" className="h-full w-full object-cover" />
                             </div>
-                            TAMAHA
+                            TAMMAHA
                         </Link>
                         <p className="text-sm text-slate-500 leading-relaxed font-medium">
                             Association loi 1901 dédiée à la solidarité internationale et au développement durable des populations vulnérables.
@@ -85,7 +85,7 @@ export function Footer() {
                         <ul className="space-y-4">
                             <li className="flex items-center gap-3 text-sm text-slate-600 font-bold">
                                 <Mail size={16} className="text-primary" />
-                                contact@tamaha.org
+                                contact@tammaha.org
                             </li>
                             <li className="flex items-center gap-3 text-sm text-slate-600 font-bold">
                                 <Phone size={16} className="text-primary" />
@@ -142,7 +142,7 @@ export function Footer() {
                 <div className="pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
                     <div className="space-y-2">
                         <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                            © {new Date().getFullYear()} Association Tamaha. Tous droits réservés.
+                            © {new Date().getFullYear()} Association Tammaha. Tous droits réservés.
                         </p>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                             Fait par <a href="https://sahelmultiservices.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-all">Sahel MULTISERVICES</a>

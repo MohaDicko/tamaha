@@ -3,7 +3,7 @@ import { Container } from '@/components/layout/Container';
 
 export const metadata = {
     title: 'À propos',
-    description: 'Découvrez l\'histoire et les valeurs de l\'association Tamaha.',
+    description: 'Découvrez l\'histoire et les valeurs de l\'association Tammaha.',
 };
 
 export default function About() {
@@ -16,7 +16,7 @@ export default function About() {
             <Container className="py-20 max-w-4xl space-y-12">
                 <div className="prose dark:prose-invert max-w-none text-lg leading-relaxed">
                     <p>
-                        Fondée avec une vision de solidarité et d'entraide, l'association <strong>Tamaha</strong> œuvre au quotidien pour améliorer les conditions de vie des populations vulnérables.
+                        Fondée avec une vision de solidarité et d'entraide, l'association <strong>Tammaha</strong> œuvre au quotidien pour améliorer les conditions de vie des populations vulnérables.
                     </p>
                     <p>
                         Basée à <strong>Niamana Dougoukoro</strong>, nous intervenons principalement auprès des <strong>femmes, des jeunes et des adolescents</strong>.
@@ -49,7 +49,7 @@ export default function About() {
 
                     <h2 className="text-3xl font-bold mt-12 mb-6">Notre Équipe</h2>
                     <p>
-                        Tamaha, c'est avant tout une trentaine de bénévoles passionnés qui donnent de leur temps et de leur énergie pour faire vivre nos projets.
+                        Tammaha, c'est avant tout une trentaine de bénévoles passionnés qui donnent de leur temps et de leur énergie pour faire vivre nos projets.
                     </p>
                 </div>
             </Container>

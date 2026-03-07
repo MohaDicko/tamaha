@@ -4,7 +4,7 @@ import { DonationForm } from '@/components/sections/DonationForm';
 import { Heart } from 'lucide-react';
 
 export const metadata = {
-    title: 'Faire un don | Tamaha',
+    title: 'Faire un don | Tammaha',
 };
 
 export default function Donate() {
@@ -62,7 +62,7 @@ export default function Donate() {
                     <div className="bg-muted/50 p-10 rounded-3xl border border-dashed border-primary/30">
                         <h3 className="text-xl font-bold mb-4">Réduction fiscale</h3>
                         <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                            L'association Tamaha est reconnue d'intérêt général. Vos dons ouvrent droit à une réduction d'impôt sur le revenu égale à 66% de leur montant.
+                            L'association Tammaha est reconnue d'intérêt général. Vos dons ouvrent droit à une réduction d'impôt sur le revenu égale à 66% de leur montant.
                         </p>
                         <div className="p-4 bg-background rounded-2xl flex items-center gap-4 border shadow-sm">
                             <div className="text-2xl font-black text-primary">66%</div>

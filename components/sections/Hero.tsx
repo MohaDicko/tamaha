@@ -37,7 +37,7 @@ export function Hero() {
                         >
                             <span className="section-label">
                                 <Sparkles size={13} />
-                                Association Tamaha &middot; Solidarité &amp; Espoir
+                                Association Tammaha &middot; Solidarité &amp; Espoir
                             </span>
                         </motion.div>
 
@@ -55,7 +55,7 @@ export function Hero() {
                                 Durable &amp; Solidaire
                             </h1>
                             <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-lg">
-                                Tamaha s'engage pour l'autonomie des communautés au Sénégal et au Mali
+                                Tammaha s'engage pour l'autonomie des communautés au Sénégal et au Mali
                                 à travers des actions concrètes en santé, éducation et protection sociale.
                             </p>
                         </motion.div>
@@ -108,12 +108,12 @@ export function Hero() {
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.65, delay: 0.15 }}
-                        className="relative hidden xl:block"
+                        className="relative hidden lg:block"
                     >
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-100 aspect-[4/5]">
                             <Image
                                 src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop&crop=faces"
-                                alt="Actions humanitaires de l'association Tamaha"
+                                alt="Actions humanitaires de l'association Tammaha"
                                 fill
                                 priority
                                 sizes="(max-width: 1280px) 100vw, 50vw"

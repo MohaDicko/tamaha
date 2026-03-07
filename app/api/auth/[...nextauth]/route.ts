@@ -18,7 +18,7 @@ const handler = NextAuth({
                 ) {
                     return {
                         id: "1",
-                        name: "Administrateur Tamaha",
+                        name: "Administrateur Tammaha",
                         email: env.ADMIN_USER,
                         role: "ADMIN"
                     };
