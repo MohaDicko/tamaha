@@ -1,0 +1,382 @@
+{
+  "cacheItemsMap": {
+    "events/cleanup.mdx": {
+      "document": {
+        "title": "Opération Nettoyage Plage",
+        "date": "2024-04-20T00:00:00.000Z",
+        "excerpt": "Grande mobilisation citoyenne pour la protection de l'environnement et de notre littoral.",
+        "cover": "https://images.unsplash.com/photo-1618477461853-5f8dd68aa395\r",
+        "location": "Dakar, Sénégal",
+        "body": {
+          "raw": "\r\n# Mobilisation générale pour notre littoral\r\n\r\nEn partenariat avec les associations locales, nous organisons une grande journée de nettoyage de la plage de Yoff.\r\n\r\nDes gants et des sacs seront fournis. Animations et pique-nique participatif après l'effort. Venez nombreux en famille ou entre amis !\r\n",
+          "code": "var Component=(()=>{var d=Object.create;var r=Object.defineProperty;var u=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var g=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var h=(e,n)=>()=>(n||e((n={exports:{}}).exports,n),n.exports),x=(e,n)=>{for(var o in n)r(e,o,{get:n[o],enumerable:!0})},i=(e,n,o,s)=>{if(n&&typeof n==\"object\"||typeof n==\"function\")for(let a of m(n))!f.call(e,a)&&a!==o&&r(e,a,{get:()=>n[a],enumerable:!(s=u(n,a))||s.enumerable});return e};var j=(e,n,o)=>(o=e!=null?d(g(e)):{},i(n||!e||!e.__esModule?r(o,\"default\",{value:e,enumerable:!0}):o,e)),_=e=>i(r({},\"__esModule\",{value:!0}),e);var c=h((O,l)=>{l.exports=_jsx_runtime});var M={};x(M,{default:()=>y,frontmatter:()=>b});var t=j(c()),b={title:\"Op\\xE9ration Nettoyage Plage\",date:new Date(17135712e5),location:\"Dakar, S\\xE9n\\xE9gal\",excerpt:\"Grande mobilisation citoyenne pour la protection de l'environnement et de notre littoral.\",cover:\"https://images.unsplash.com/photo-1618477461853-5f8dd68aa395\"};function p(e){let n=Object.assign({h1:\"h1\",p:\"p\"},e.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(n.h1,{children:\"Mobilisation g\\xE9n\\xE9rale pour notre littoral\"}),`\n`,(0,t.jsx)(n.p,{children:\"En partenariat avec les associations locales, nous organisons une grande journ\\xE9e de nettoyage de la plage de Yoff.\"}),`\n`,(0,t.jsx)(n.p,{children:\"Des gants et des sacs seront fournis. Animations et pique-nique participatif apr\\xE8s l'effort. Venez nombreux en famille ou entre amis !\"})]})}function D(e={}){let{wrapper:n}=e.components||{};return n?(0,t.jsx)(n,Object.assign({},e,{children:(0,t.jsx)(p,e)})):p(e)}var y=D;return _(M);})();\n;return Component;"
+        },
+        "_id": "events/cleanup.mdx",
+        "_raw": {
+          "sourceFilePath": "events/cleanup.mdx",
+          "sourceFileName": "cleanup.mdx",
+          "sourceFileDir": "events",
+          "contentType": "mdx",
+          "flattenedPath": "events/cleanup"
+        },
+        "type": "Event",
+        "slug": "cleanup",
+        "url": "/events/cleanup"
+      },
+      "documentHash": "1772921018407",
+      "hasWarnings": false,
+      "documentTypeName": "Event"
+    },
+    "events/gala.mdx": {
+      "document": {
+        "title": "Gala de Charité Tammaha",
+        "date": "2024-05-15T00:00:00.000Z",
+        "excerpt": "Rejoignez-nous pour une soirée inoubliable au profit de nos actions éducatives.",
+        "cover": "https://images.unsplash.com/photo-1511578314322-379afb476865\r",
+        "location": "Paris, France",
+        "body": {
+          "raw": "\r\n# Gala Annuel 2024\r\n\r\nLe Gala de Charité Tammaha est l'occasion de rassembler nos soutiens, partenaires et bénévoles.\r\n\r\n## Programme\r\n\r\n- 19h00 : Cocktail d'accueil\r\n- 20h30 : Dîner gastronomique\r\n- 22h00 : Vente aux enchères caritative\r\n\r\nTous les fonds collectés serviront à financer la construction de notre nouvelle école.\r\n",
+          "code": "var Component=(()=>{var u=Object.create;var r=Object.defineProperty;var d=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var p=Object.getPrototypeOf,x=Object.prototype.hasOwnProperty;var f=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),g=(n,e)=>{for(var a in e)r(n,a,{get:e[a],enumerable:!0})},s=(n,e,a,i)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of m(e))!x.call(n,o)&&o!==a&&r(n,o,{get:()=>e[o],enumerable:!(i=d(e,o))||i.enumerable});return n};var j=(n,e,a)=>(a=n!=null?u(p(n)):{},s(e||!n||!n.__esModule?r(a,\"default\",{value:n,enumerable:!0}):a,n)),b=n=>s(r({},\"__esModule\",{value:!0}),n);var l=f((G,c)=>{c.exports=_jsx_runtime});var D={};g(D,{default:()=>C,frontmatter:()=>_});var t=j(l()),_={title:\"Gala de Charit\\xE9 Tammaha\",date:new Date(17157312e5),location:\"Paris, France\",excerpt:\"Rejoignez-nous pour une soir\\xE9e inoubliable au profit de nos actions \\xE9ducatives.\",cover:\"https://images.unsplash.com/photo-1511578314322-379afb476865\"};function h(n){let e=Object.assign({h1:\"h1\",p:\"p\",h2:\"h2\",ul:\"ul\",li:\"li\"},n.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(e.h1,{children:\"Gala Annuel 2024\"}),`\n`,(0,t.jsx)(e.p,{children:\"Le Gala de Charit\\xE9 Tammaha est l'occasion de rassembler nos soutiens, partenaires et b\\xE9n\\xE9voles.\"}),`\n`,(0,t.jsx)(e.h2,{children:\"Programme\"}),`\n`,(0,t.jsxs)(e.ul,{children:[`\n`,(0,t.jsx)(e.li,{children:\"19h00 : Cocktail d'accueil\"}),`\n`,(0,t.jsx)(e.li,{children:\"20h30 : D\\xEEner gastronomique\"}),`\n`,(0,t.jsx)(e.li,{children:\"22h00 : Vente aux ench\\xE8res caritative\"}),`\n`]}),`\n`,(0,t.jsx)(e.p,{children:\"Tous les fonds collect\\xE9s serviront \\xE0 financer la construction de notre nouvelle \\xE9cole.\"})]})}function v(n={}){let{wrapper:e}=n.components||{};return e?(0,t.jsx)(e,Object.assign({},n,{children:(0,t.jsx)(h,n)})):h(n)}var C=v;return b(D);})();\n;return Component;"
+        },
+        "_id": "events/gala.mdx",
+        "_raw": {
+          "sourceFilePath": "events/gala.mdx",
+          "sourceFileName": "gala.mdx",
+          "sourceFileDir": "events",
+          "contentType": "mdx",
+          "flattenedPath": "events/gala"
+        },
+        "type": "Event",
+        "slug": "gala",
+        "url": "/events/gala"
+      },
+      "documentHash": "1772921018409",
+      "hasWarnings": false,
+      "documentTypeName": "Event"
+    },
+    "posts/album-kits-scolaires.mdx": {
+      "document": {
+        "title": "Mise en place des kits scolaires Album Photo",
+        "date": "2024-02-22T00:00:00.000Z",
+        "excerpt": "Distribution annuelle des kits scolaires pour les enfants.",
+        "cover": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop",
+        "tags": [
+          "Éducation",
+          "Album"
+        ],
+        "featured": false,
+        "format": "gallery",
+        "images": [
+          "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2104&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1454165833767-027ffec95c1a?q=80&w=2070&auto=format&fit=crop"
+        ],
+        "author": "Aminata Koné\r",
+        "body": {
+          "raw": "\r\nUne journée riche en émotions avec les enfants de l'école de Thiaroye.\r\n",
+          "code": "var Component=(()=>{var u=Object.create;var n=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var f=Object.getOwnPropertyNames;var h=Object.getPrototypeOf,d=Object.prototype.hasOwnProperty;var g=(t,o)=>()=>(o||t((o={exports:{}}).exports,o),o.exports),x=(t,o)=>{for(var e in o)n(t,e,{get:o[e],enumerable:!0})},c=(t,o,e,r)=>{if(o&&typeof o==\"object\"||typeof o==\"function\")for(let a of f(o))!d.call(t,a)&&a!==e&&n(t,a,{get:()=>o[a],enumerable:!(r=l(o,a))||r.enumerable});return t};var b=(t,o,e)=>(e=t!=null?u(h(t)):{},c(o||!t||!t.__esModule?n(e,\"default\",{value:t,enumerable:!0}):e,t)),j=t=>c(n({},\"__esModule\",{value:!0}),t);var m=g((y,i)=>{i.exports=_jsx_runtime});var D={};x(D,{default:()=>q,frontmatter:()=>w});var s=b(m()),w={title:\"Mise en place des kits scolaires Album Photo\",date:new Date(170856e7),excerpt:\"Distribution annuelle des kits scolaires pour les enfants.\",cover:\"https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop\",format:\"gallery\",images:[\"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop\",\"https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2104&auto=format&fit=crop\",\"https://images.unsplash.com/photo-1454165833767-027ffec95c1a?q=80&w=2070&auto=format&fit=crop\"],tags:[\"\\xC9ducation\",\"Album\"],author:\"Aminata Kon\\xE9\"};function p(t){let o=Object.assign({p:\"p\"},t.components);return(0,s.jsx)(o.p,{children:\"Une journ\\xE9e riche en \\xE9motions avec les enfants de l'\\xE9cole de Thiaroye.\"})}function _(t={}){let{wrapper:o}=t.components||{};return o?(0,s.jsx)(o,Object.assign({},t,{children:(0,s.jsx)(p,t)})):p(t)}var q=_;return j(D);})();\n;return Component;"
+        },
+        "_id": "posts/album-kits-scolaires.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/album-kits-scolaires.mdx",
+          "sourceFileName": "album-kits-scolaires.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/album-kits-scolaires"
+        },
+        "type": "Post",
+        "slug": "album-kits-scolaires",
+        "url": "/blog/album-kits-scolaires",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018411",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "posts/bilan-2023.mdx": {
+      "document": {
+        "title": "Bilan de nos actions 2023",
+        "date": "2023-12-20T00:00:00.000Z",
+        "excerpt": "Retour sur une année riche en émotions et en réalisations concrètes sur le terrain.",
+        "cover": "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2070&auto=format&fit=crop",
+        "tags": [
+          "Bilan",
+          "Réalisations\r"
+        ],
+        "featured": false,
+        "format": "article",
+        "author": "Tammaha Team",
+        "body": {
+          "raw": "\r\n# Une année incroyable\r\n\r\nGrâce à votre soutien, nous avons pu aider plus de 200 familles cette année. L'engagement de chacun a permis de dépasser nos objectifs initiaux.\r\n\r\n## En chiffres\r\n\r\n- **2500 repas** distribués lors des maraudes.\r\n- **50 bourses scolaires** attribuées à des étudiants méritants.\r\n- **1 centre de santé** entièrement rénové dans la région de Kolda.\r\n\r\nMerci infiniment à tous nos donateurs et bénévoles sans qui rien ne serait possible.\r\n",
+          "code": "var Component=(()=>{var u=Object.create;var i=Object.defineProperty;var h=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var p=Object.getPrototypeOf,g=Object.prototype.hasOwnProperty;var f=(e,n)=>()=>(n||e((n={exports:{}}).exports,n),n.exports),b=(e,n)=>{for(var s in n)i(e,s,{get:n[s],enumerable:!0})},a=(e,n,s,o)=>{if(n&&typeof n==\"object\"||typeof n==\"function\")for(let r of m(n))!g.call(e,r)&&r!==s&&i(e,r,{get:()=>n[r],enumerable:!(o=h(n,r))||o.enumerable});return e};var x=(e,n,s)=>(s=e!=null?u(p(e)):{},a(n||!e||!e.__esModule?i(s,\"default\",{value:e,enumerable:!0}):s,e)),j=e=>a(i({},\"__esModule\",{value:!0}),e);var l=f((y,c)=>{c.exports=_jsx_runtime});var q={};b(q,{default:()=>M,frontmatter:()=>_});var t=x(l()),_={title:\"Bilan de nos actions 2023\",date:\"2023-12-20\",excerpt:\"Retour sur une ann\\xE9e riche en \\xE9motions et en r\\xE9alisations concr\\xE8tes sur le terrain.\",cover:\"https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2070&auto=format&fit=crop\",format:\"article\",tags:[\"Bilan\",\"R\\xE9alisations\"]};function d(e){let n=Object.assign({h1:\"h1\",p:\"p\",h2:\"h2\",ul:\"ul\",li:\"li\",strong:\"strong\"},e.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(n.h1,{children:\"Une ann\\xE9e incroyable\"}),`\n`,(0,t.jsx)(n.p,{children:\"Gr\\xE2ce \\xE0 votre soutien, nous avons pu aider plus de 200 familles cette ann\\xE9e. L'engagement de chacun a permis de d\\xE9passer nos objectifs initiaux.\"}),`\n`,(0,t.jsx)(n.h2,{children:\"En chiffres\"}),`\n`,(0,t.jsxs)(n.ul,{children:[`\n`,(0,t.jsxs)(n.li,{children:[(0,t.jsx)(n.strong,{children:\"2500 repas\"}),\" distribu\\xE9s lors des maraudes.\"]}),`\n`,(0,t.jsxs)(n.li,{children:[(0,t.jsx)(n.strong,{children:\"50 bourses scolaires\"}),\" attribu\\xE9es \\xE0 des \\xE9tudiants m\\xE9ritants.\"]}),`\n`,(0,t.jsxs)(n.li,{children:[(0,t.jsx)(n.strong,{children:\"1 centre de sant\\xE9\"}),\" enti\\xE8rement r\\xE9nov\\xE9 dans la r\\xE9gion de Kolda.\"]}),`\n`]}),`\n`,(0,t.jsx)(n.p,{children:\"Merci infiniment \\xE0 tous nos donateurs et b\\xE9n\\xE9voles sans qui rien ne serait possible.\"})]})}function v(e={}){let{wrapper:n}=e.components||{};return n?(0,t.jsx)(n,Object.assign({},e,{children:(0,t.jsx)(d,e)})):d(e)}var M=v;return j(q);})();\n;return Component;"
+        },
+        "_id": "posts/bilan-2023.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/bilan-2023.mdx",
+          "sourceFileName": "bilan-2023.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/bilan-2023"
+        },
+        "type": "Post",
+        "slug": "bilan-2023",
+        "url": "/blog/bilan-2023",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018414",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "posts/campagne-2024.mdx": {
+      "document": {
+        "title": "Lancement de la campagne 2024",
+        "date": "2024-01-15T00:00:00.000Z",
+        "excerpt": "Nous sommes fiers d'annoncer le début de notre nouvelle campagne de solidarité pour l'année 2024.",
+        "cover": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop",
+        "tags": [
+          "Annonce",
+          "Campagne",
+          "Solidarité\r"
+        ],
+        "featured": false,
+        "format": "article",
+        "author": "Tammaha Team",
+        "body": {
+          "raw": "\r\n# Une nouvelle année commence\r\n\r\nC'est avec une immense joie que l'équipe de Tammaha lance sa campagne annuelle. Cette année, nous mettons l'accent sur l'accès à l'éducation numérique pour les enfants défavorisés.\r\n\r\n## Nos objectifs\r\n\r\n1. Équiper 5 écoles rurales en matériel informatique.\r\n2. Former 20 enseignants.\r\n3. Sensibiliser 1000 élèves.\r\n\r\nRejoignez-nous dans cette aventure !\r\n",
+          "code": "var Component=(()=>{var u=Object.create;var s=Object.defineProperty;var d=Object.getOwnPropertyDescriptor;var h=Object.getOwnPropertyNames;var p=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var g=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),j=(n,e)=>{for(var a in e)s(n,a,{get:e[a],enumerable:!0})},i=(n,e,a,r)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of h(e))!f.call(n,o)&&o!==a&&s(n,o,{get:()=>e[o],enumerable:!(r=d(e,o))||r.enumerable});return n};var x=(n,e,a)=>(a=n!=null?u(p(n)):{},i(e||!n||!n.__esModule?s(a,\"default\",{value:n,enumerable:!0}):a,n)),b=n=>i(s({},\"__esModule\",{value:!0}),n);var l=g((M,c)=>{c.exports=_jsx_runtime});var C={};j(C,{default:()=>q,frontmatter:()=>v});var t=x(l()),v={title:\"Lancement de la campagne 2024\",date:\"2024-01-15\",excerpt:\"Nous sommes fiers d'annoncer le d\\xE9but de notre nouvelle campagne de solidarit\\xE9 pour l'ann\\xE9e 2024.\",cover:\"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop\",format:\"article\",tags:[\"Annonce\",\"Campagne\",\"Solidarit\\xE9\"]};function m(n){let e=Object.assign({h1:\"h1\",p:\"p\",h2:\"h2\",ol:\"ol\",li:\"li\"},n.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(e.h1,{children:\"Une nouvelle ann\\xE9e commence\"}),`\n`,(0,t.jsx)(e.p,{children:\"C'est avec une immense joie que l'\\xE9quipe de Tammaha lance sa campagne annuelle. Cette ann\\xE9e, nous mettons l'accent sur l'acc\\xE8s \\xE0 l'\\xE9ducation num\\xE9rique pour les enfants d\\xE9favoris\\xE9s.\"}),`\n`,(0,t.jsx)(e.h2,{children:\"Nos objectifs\"}),`\n`,(0,t.jsxs)(e.ol,{children:[`\n`,(0,t.jsx)(e.li,{children:\"\\xC9quiper 5 \\xE9coles rurales en mat\\xE9riel informatique.\"}),`\n`,(0,t.jsx)(e.li,{children:\"Former 20 enseignants.\"}),`\n`,(0,t.jsx)(e.li,{children:\"Sensibiliser 1000 \\xE9l\\xE8ves.\"}),`\n`]}),`\n`,(0,t.jsx)(e.p,{children:\"Rejoignez-nous dans cette aventure !\"})]})}function _(n={}){let{wrapper:e}=n.components||{};return e?(0,t.jsx)(e,Object.assign({},n,{children:(0,t.jsx)(m,n)})):m(n)}var q=_;return b(C);})();\n;return Component;"
+        },
+        "_id": "posts/campagne-2024.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/campagne-2024.mdx",
+          "sourceFileName": "campagne-2024.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/campagne-2024"
+        },
+        "type": "Post",
+        "slug": "campagne-2024",
+        "url": "/blog/campagne-2024",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018416",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "posts/status-mission-matam.mdx": {
+      "document": {
+        "title": "Bientôt une nouvelle mission à Matam !",
+        "date": "2024-02-25T00:00:00.000Z",
+        "excerpt": "Préparation de notre prochaine intervention sur le terrain.",
+        "featured": false,
+        "format": "status",
+        "author": "Samba Dicko",
+        "authorAvatar": "https://i.pravatar.cc/150?u=samba\r",
+        "body": {
+          "raw": "\r\nToute l'équipe est mobilisée pour préparer le matériel médical et les fournitures scolaires. Départ prévu dans 15 jours ! Merci pour votre soutien constant. 🇸🇳❤️ #Tammaha #Solidarité\r\n",
+          "code": "var Component=(()=>{var m=Object.create;var a=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var h=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),j=(t,e)=>{for(var r in e)a(t,r,{get:e[r],enumerable:!0})},s=(t,e,r,i)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let n of d(e))!f.call(t,n)&&n!==r&&a(t,n,{get:()=>e[n],enumerable:!(i=l(e,n))||i.enumerable});return t};var v=(t,e,r)=>(r=t!=null?m(x(t)):{},s(e||!t||!t.__esModule?a(r,\"default\",{value:t,enumerable:!0}):r,t)),b=t=>s(a({},\"__esModule\",{value:!0}),t);var c=h((C,u)=>{u.exports=_jsx_runtime});var g={};j(g,{default:()=>_,frontmatter:()=>D});var o=v(c()),D={title:\"Bient\\xF4t une nouvelle mission \\xE0 Matam !\",date:new Date(17088192e5),excerpt:\"Pr\\xE9paration de notre prochaine intervention sur le terrain.\",format:\"status\",author:\"Samba Dicko\",authorAvatar:\"https://i.pravatar.cc/150?u=samba\"};function p(t){let e=Object.assign({p:\"p\"},t.components);return(0,o.jsx)(e.p,{children:\"Toute l'\\xE9quipe est mobilis\\xE9e pour pr\\xE9parer le mat\\xE9riel m\\xE9dical et les fournitures scolaires. D\\xE9part pr\\xE9vu dans 15 jours ! Merci pour votre soutien constant. \\u{1F1F8}\\u{1F1F3}\\u2764\\uFE0F #Tammaha #Solidarit\\xE9\"})}function M(t={}){let{wrapper:e}=t.components||{};return e?(0,o.jsx)(e,Object.assign({},t,{children:(0,o.jsx)(p,t)})):p(t)}var _=M;return b(g);})();\n;return Component;"
+        },
+        "_id": "posts/status-mission-matam.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/status-mission-matam.mdx",
+          "sourceFileName": "status-mission-matam.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/status-mission-matam"
+        },
+        "type": "Post",
+        "slug": "status-mission-matam",
+        "url": "/blog/status-mission-matam",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018421",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "posts/tamaha-climat.mdx": {
+      "document": {
+        "title": "Tammaha s'engage pour le climat",
+        "date": "2024-02-21T00:00:00.000Z",
+        "excerpt": "Plantation de 1000 arbres pour lutter contre la désertification à Podor.",
+        "cover": "https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=2013&auto=format&fit=crop",
+        "tags": [
+          "Environnement",
+          "Action"
+        ],
+        "featured": false,
+        "format": "article",
+        "author": "Samba Dicko\r",
+        "body": {
+          "raw": "\r\nLa lutte contre l'avancée du désert est une priorité. Ce projet implique directement les jeunes du village.\r\n",
+          "code": "var Component=(()=>{var l=Object.create;var r=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var f=Object.getPrototypeOf,x=Object.prototype.hasOwnProperty;var b=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),g=(t,e)=>{for(var n in e)r(t,n,{get:e[n],enumerable:!0})},i=(t,e,n,c)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of d(e))!x.call(t,o)&&o!==n&&r(t,o,{get:()=>e[o],enumerable:!(c=p(e,o))||c.enumerable});return t};var h=(t,e,n)=>(n=t!=null?l(f(t)):{},i(e||!t||!t.__esModule?r(n,\"default\",{value:t,enumerable:!0}):n,t)),j=t=>i(r({},\"__esModule\",{value:!0}),t);var u=b((M,s)=>{s.exports=_jsx_runtime});var w={};g(w,{default:()=>D,frontmatter:()=>_});var a=h(u()),_={title:\"Tammaha s'engage pour le climat\",date:new Date(17084736e5),excerpt:\"Plantation de 1000 arbres pour lutter contre la d\\xE9sertification \\xE0 Podor.\",cover:\"https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=2013&auto=format&fit=crop\",format:\"article\",tags:[\"Environnement\",\"Action\"],author:\"Samba Dicko\"};function m(t){let e=Object.assign({p:\"p\"},t.components);return(0,a.jsx)(e.p,{children:\"La lutte contre l'avanc\\xE9e du d\\xE9sert est une priorit\\xE9. Ce projet implique directement les jeunes du village.\"})}function v(t={}){let{wrapper:e}=t.components||{};return e?(0,a.jsx)(e,Object.assign({},t,{children:(0,a.jsx)(m,t)})):m(t)}var D=v;return j(w);})();\n;return Component;"
+        },
+        "_id": "posts/tamaha-climat.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/tamaha-climat.mdx",
+          "sourceFileName": "tamaha-climat.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/tamaha-climat"
+        },
+        "type": "Post",
+        "slug": "tamaha-climat",
+        "url": "/blog/tamaha-climat",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018425",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "posts/tuto-lavage-mains.mdx": {
+      "document": {
+        "title": "Tuto : Hygiène des mains",
+        "date": "2024-02-20T00:00:00.000Z",
+        "excerpt": "Une vidéo simple pour apprendre les bons gestes aux enfants.",
+        "cover": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop",
+        "tags": [
+          "Santé",
+          "Éducation"
+        ],
+        "featured": false,
+        "format": "video",
+        "videoUrl": "https://www.youtube.com/watch?v=X0fI_3473g9",
+        "author": "Aminata Koné\r",
+        "body": {
+          "raw": "\r\nL'hygiène est la base de la santé. Nous distribuons également des kits de savon dans les écoles.\r\n",
+          "code": "var Component=(()=>{var m=Object.create;var s=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var l=Object.getOwnPropertyNames;var f=Object.getPrototypeOf,g=Object.prototype.hasOwnProperty;var h=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),x=(t,e)=>{for(var n in e)s(t,n,{get:e[n],enumerable:!0})},i=(t,e,n,r)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of l(e))!g.call(t,o)&&o!==n&&s(t,o,{get:()=>e[o],enumerable:!(r=p(e,o))||r.enumerable});return t};var b=(t,e,n)=>(n=t!=null?m(f(t)):{},i(e||!t||!t.__esModule?s(n,\"default\",{value:t,enumerable:!0}):n,t)),w=t=>i(s({},\"__esModule\",{value:!0}),t);var u=h((M,c)=>{c.exports=_jsx_runtime});var y={};x(y,{default:()=>j,frontmatter:()=>v});var a=b(u()),v={title:\"Tuto : Hygi\\xE8ne des mains\",date:new Date(17083872e5),excerpt:\"Une vid\\xE9o simple pour apprendre les bons gestes aux enfants.\",cover:\"https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop\",format:\"video\",videoUrl:\"https://www.youtube.com/watch?v=X0fI_3473g9\",tags:[\"Sant\\xE9\",\"\\xC9ducation\"],author:\"Aminata Kon\\xE9\"};function d(t){let e=Object.assign({p:\"p\"},t.components);return(0,a.jsx)(e.p,{children:\"L'hygi\\xE8ne est la base de la sant\\xE9. Nous distribuons \\xE9galement des kits de savon dans les \\xE9coles.\"})}function _(t={}){let{wrapper:e}=t.components||{};return e?(0,a.jsx)(e,Object.assign({},t,{children:(0,a.jsx)(d,t)})):d(t)}var j=_;return w(y);})();\n;return Component;"
+        },
+        "_id": "posts/tuto-lavage-mains.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/tuto-lavage-mains.mdx",
+          "sourceFileName": "tuto-lavage-mains.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/tuto-lavage-mains"
+        },
+        "type": "Post",
+        "slug": "tuto-lavage-mains",
+        "url": "/blog/tuto-lavage-mains",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018428",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "posts/visite-centre-sante.mdx": {
+      "document": {
+        "title": "Visite au Centre de Santé de Niamana",
+        "date": "2024-02-18T00:00:00.000Z",
+        "excerpt": "Suivi mensuel de nos indicateurs de santé maternelle.",
+        "cover": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop",
+        "tags": [
+          "Santé",
+          "Maternité"
+        ],
+        "featured": false,
+        "format": "video",
+        "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "author": "Samba Dicko",
+        "authorAvatar": "https://i.pravatar.cc/150\r",
+        "body": {
+          "raw": "\r\nUne journée encourageante avec des indicateurs en nette progression grâce à la nouvelle couveuse.\r\n",
+          "code": "var Component=(()=>{var m=Object.create;var o=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var l=Object.getOwnPropertyNames;var h=Object.getPrototypeOf,v=Object.prototype.hasOwnProperty;var f=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),w=(t,e)=>{for(var n in e)o(t,n,{get:e[n],enumerable:!0})},s=(t,e,n,c)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let a of l(e))!v.call(t,a)&&a!==n&&o(t,a,{get:()=>e[a],enumerable:!(c=p(e,a))||c.enumerable});return t};var g=(t,e,n)=>(n=t!=null?m(h(t)):{},s(e||!t||!t.__esModule?o(n,\"default\",{value:t,enumerable:!0}):n,t)),x=t=>s(o({},\"__esModule\",{value:!0}),t);var u=f((S,i)=>{i.exports=_jsx_runtime});var D={};w(D,{default:()=>_,frontmatter:()=>b});var r=g(u()),b={title:\"Visite au Centre de Sant\\xE9 de Niamana\",date:new Date(17082144e5),excerpt:\"Suivi mensuel de nos indicateurs de sant\\xE9 maternelle.\",cover:\"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop\",format:\"video\",videoUrl:\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",tags:[\"Sant\\xE9\",\"Maternit\\xE9\"],author:\"Samba Dicko\",authorAvatar:\"https://i.pravatar.cc/150\"};function d(t){let e=Object.assign({p:\"p\"},t.components);return(0,r.jsx)(e.p,{children:\"Une journ\\xE9e encourageante avec des indicateurs en nette progression gr\\xE2ce \\xE0 la nouvelle couveuse.\"})}function j(t={}){let{wrapper:e}=t.components||{};return e?(0,r.jsx)(e,Object.assign({},t,{children:(0,r.jsx)(d,t)})):d(t)}var _=j;return x(D);})();\n;return Component;"
+        },
+        "_id": "posts/visite-centre-sante.mdx",
+        "_raw": {
+          "sourceFilePath": "posts/visite-centre-sante.mdx",
+          "sourceFileName": "visite-centre-sante.mdx",
+          "sourceFileDir": "posts",
+          "contentType": "mdx",
+          "flattenedPath": "posts/visite-centre-sante"
+        },
+        "type": "Post",
+        "slug": "visite-centre-sante",
+        "url": "/blog/visite-centre-sante",
+        "readingTime": "1 min read"
+      },
+      "documentHash": "1772921018430",
+      "hasWarnings": false,
+      "documentTypeName": "Post"
+    },
+    "projects/campagne-sante-vbg.mdx": {
+      "document": {
+        "title": "Campagne de Dépistage et Sensibilisation",
+        "date": "2024-02-17T00:00:00.000Z",
+        "excerpt": "Grande journée de santé publique - dépistages, informations sur l'hygiène et prévention des VBG.",
+        "cover": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d\r",
+        "status": "ongoing",
+        "body": {
+          "raw": "\r\n# Une journée pour la santé de tous\r\n\r\nÀ Tammaha, nous croyons que l'information et la prévention sont les clés d'une communauté en bonne santé.\r\n\r\nC'est pourquoi nous avons organisé, en collaboration avec les autorités sanitaires locales, une grande campagne de dépistage et de sensibilisation.\r\n\r\n## Au programme :\r\n\r\n- **Dépistage gratuit** de l'hypertension et du diabète.\r\n- **Consultations médicales** pour les femmes enceintes et les enfants.\r\n- **Causeries éducatives** sur l'hygiène corporelle et intime.\r\n- **Ateliers de prévention** sur les dangers des psychotropes auprès des adolescents.\r\n\r\n## Lutte contre les VBG\r\n\r\nUn accent particulier a été mis sur la lutte contre les Violences Basées sur le Genre (VBG). Nos psychologues étaient présents pour écouter et accompagner les victimes dans un cadre confidentiel et bienveillant.\r\n\r\nNous remercions tous les participants et bénévoles pour cette mobilisation exceptionnelle.\r\n",
+          "code": "var Component=(()=>{var d=Object.create;var r=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var h=Object.getOwnPropertyNames;var m=Object.getPrototypeOf,g=Object.prototype.hasOwnProperty;var b=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),x=(n,e)=>{for(var s in e)r(n,s,{get:e[s],enumerable:!0})},a=(n,e,s,o)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let i of h(e))!g.call(n,i)&&i!==s&&r(n,i,{get:()=>e[i],enumerable:!(o=p(e,i))||o.enumerable});return n};var f=(n,e,s)=>(s=n!=null?d(m(n)):{},a(e||!n||!n.__esModule?r(s,\"default\",{value:n,enumerable:!0}):s,n)),v=n=>a(r({},\"__esModule\",{value:!0}),n);var c=b((G,l)=>{l.exports=_jsx_runtime});var C={};x(C,{default:()=>_,frontmatter:()=>j});var t=f(c()),j={title:\"Campagne de D\\xE9pistage et Sensibilisation\",date:new Date(1708128e6),excerpt:\"Grande journ\\xE9e de sant\\xE9 publique - d\\xE9pistages, informations sur l'hygi\\xE8ne et pr\\xE9vention des VBG.\",status:\"ongoing\",cover:\"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d\"};function u(n){let e=Object.assign({h1:\"h1\",p:\"p\",h2:\"h2\",ul:\"ul\",li:\"li\",strong:\"strong\"},n.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(e.h1,{children:\"Une journ\\xE9e pour la sant\\xE9 de tous\"}),`\n`,(0,t.jsx)(e.p,{children:\"\\xC0 Tammaha, nous croyons que l'information et la pr\\xE9vention sont les cl\\xE9s d'une communaut\\xE9 en bonne sant\\xE9.\"}),`\n`,(0,t.jsx)(e.p,{children:\"C'est pourquoi nous avons organis\\xE9, en collaboration avec les autorit\\xE9s sanitaires locales, une grande campagne de d\\xE9pistage et de sensibilisation.\"}),`\n`,(0,t.jsx)(e.h2,{children:\"Au programme :\"}),`\n`,(0,t.jsxs)(e.ul,{children:[`\n`,(0,t.jsxs)(e.li,{children:[(0,t.jsx)(e.strong,{children:\"D\\xE9pistage gratuit\"}),\" de l'hypertension et du diab\\xE8te.\"]}),`\n`,(0,t.jsxs)(e.li,{children:[(0,t.jsx)(e.strong,{children:\"Consultations m\\xE9dicales\"}),\" pour les femmes enceintes et les enfants.\"]}),`\n`,(0,t.jsxs)(e.li,{children:[(0,t.jsx)(e.strong,{children:\"Causeries \\xE9ducatives\"}),\" sur l'hygi\\xE8ne corporelle et intime.\"]}),`\n`,(0,t.jsxs)(e.li,{children:[(0,t.jsx)(e.strong,{children:\"Ateliers de pr\\xE9vention\"}),\" sur les dangers des psychotropes aupr\\xE8s des adolescents.\"]}),`\n`]}),`\n`,(0,t.jsx)(e.h2,{children:\"Lutte contre les VBG\"}),`\n`,(0,t.jsx)(e.p,{children:\"Un accent particulier a \\xE9t\\xE9 mis sur la lutte contre les Violences Bas\\xE9es sur le Genre (VBG). Nos psychologues \\xE9taient pr\\xE9sents pour \\xE9couter et accompagner les victimes dans un cadre confidentiel et bienveillant.\"}),`\n`,(0,t.jsx)(e.p,{children:\"Nous remercions tous les participants et b\\xE9n\\xE9voles pour cette mobilisation exceptionnelle.\"})]})}function y(n={}){let{wrapper:e}=n.components||{};return e?(0,t.jsx)(e,Object.assign({},n,{children:(0,t.jsx)(u,n)})):u(n)}var _=y;return v(C);})();\n;return Component;"
+        },
+        "_id": "projects/campagne-sante-vbg.mdx",
+        "_raw": {
+          "sourceFilePath": "projects/campagne-sante-vbg.mdx",
+          "sourceFileName": "campagne-sante-vbg.mdx",
+          "sourceFileDir": "projects",
+          "contentType": "mdx",
+          "flattenedPath": "projects/campagne-sante-vbg"
+        },
+        "type": "Project",
+        "slug": "campagne-sante-vbg",
+        "url": "/actions/campagne-sante-vbg"
+      },
+      "documentHash": "1772921018434",
+      "hasWarnings": false,
+      "documentTypeName": "Project"
+    },
+    "projects/ecole-thiaroye.mdx": {
+      "document": {
+        "title": "Construction de l'école de Thiaroye",
+        "date": "2023-09-01T00:00:00.000Z",
+        "excerpt": "Un projet ambitieux pour offrir un cadre d'étude décent à 300 enfants.",
+        "cover": "https://images.unsplash.com/photo-1577909386419-5485923951f2\r",
+        "status": "ongoing",
+        "body": {
+          "raw": "\r\n# L'école de demain\r\n\r\nNous avons posé la première pierre en mars 2023. Les travaux avancent bien.\r\n\r\n## Ce qui est fait :\r\n- Fondations achevées\r\n- Murs du rez-de-chaussée élevés\r\n\r\n## Prochaine étape :\r\n- Toiture avant la saison des pluies.\r\n",
+          "code": "var Component=(()=>{var u=Object.create;var i=Object.defineProperty;var h=Object.getOwnPropertyDescriptor;var p=Object.getOwnPropertyNames;var m=Object.getPrototypeOf,x=Object.prototype.hasOwnProperty;var f=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),j=(n,e)=>{for(var r in e)i(n,r,{get:e[r],enumerable:!0})},o=(n,e,r,a)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let s of p(e))!x.call(n,s)&&s!==r&&i(n,s,{get:()=>e[s],enumerable:!(a=h(e,s))||a.enumerable});return n};var g=(n,e,r)=>(r=n!=null?u(m(n)):{},o(e||!n||!n.__esModule?i(r,\"default\",{value:n,enumerable:!0}):r,n)),v=n=>o(i({},\"__esModule\",{value:!0}),n);var l=f((F,c)=>{c.exports=_jsx_runtime});var M={};j(M,{default:()=>C,frontmatter:()=>_});var t=g(l()),_={title:\"Construction de l'\\xE9cole de Thiaroye\",date:new Date(16935264e5),excerpt:\"Un projet ambitieux pour offrir un cadre d'\\xE9tude d\\xE9cent \\xE0 300 enfants.\",status:\"ongoing\",cover:\"https://images.unsplash.com/photo-1577909386419-5485923951f2\"};function d(n){let e=Object.assign({h1:\"h1\",p:\"p\",h2:\"h2\",ul:\"ul\",li:\"li\"},n.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(e.h1,{children:\"L'\\xE9cole de demain\"}),`\n`,(0,t.jsx)(e.p,{children:\"Nous avons pos\\xE9 la premi\\xE8re pierre en mars 2023. Les travaux avancent bien.\"}),`\n`,(0,t.jsx)(e.h2,{children:\"Ce qui est fait :\"}),`\n`,(0,t.jsxs)(e.ul,{children:[`\n`,(0,t.jsx)(e.li,{children:\"Fondations achev\\xE9es\"}),`\n`,(0,t.jsx)(e.li,{children:\"Murs du rez-de-chauss\\xE9e \\xE9lev\\xE9s\"}),`\n`]}),`\n`,(0,t.jsx)(e.h2,{children:\"Prochaine \\xE9tape :\"}),`\n`,(0,t.jsxs)(e.ul,{children:[`\n`,(0,t.jsx)(e.li,{children:\"Toiture avant la saison des pluies.\"}),`\n`]})]})}function b(n={}){let{wrapper:e}=n.components||{};return e?(0,t.jsx)(e,Object.assign({},n,{children:(0,t.jsx)(d,n)})):d(n)}var C=b;return v(M);})();\n;return Component;"
+        },
+        "_id": "projects/ecole-thiaroye.mdx",
+        "_raw": {
+          "sourceFilePath": "projects/ecole-thiaroye.mdx",
+          "sourceFileName": "ecole-thiaroye.mdx",
+          "sourceFileDir": "projects",
+          "contentType": "mdx",
+          "flattenedPath": "projects/ecole-thiaroye"
+        },
+        "type": "Project",
+        "slug": "ecole-thiaroye",
+        "url": "/actions/ecole-thiaroye"
+      },
+      "documentHash": "1772921018437",
+      "hasWarnings": false,
+      "documentTypeName": "Project"
+    },
+    "projects/puits-matam.mdx": {
+      "document": {
+        "title": "Puits Solaire à Matam",
+        "date": "2022-11-15T00:00:00.000Z",
+        "excerpt": "Accès à l'eau potable pour 500 villageois grâce à l'énergie solaire.",
+        "cover": "https://images.unsplash.com/photo-1541883738096-7bb2a0487042\r",
+        "status": "completed",
+        "body": {
+          "raw": "\r\n# L'eau, c'est la vie\r\n\r\nCe forage motorisé par des panneaux solaires permet aux femmes de gagner 2 heures par jour, qu'elles consacrent à d'autres activités génératrices de revenus.\r\n\r\nL'irrigation du jardin communautaire est désormais possible toute l'année, renforçant la sécurité alimentaire du village.\r\n",
+          "code": "var Component=(()=>{var m=Object.create;var s=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var g=Object.getPrototypeOf,h=Object.prototype.hasOwnProperty;var x=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports),j=(e,t)=>{for(var n in t)s(e,n,{get:t[n],enumerable:!0})},i=(e,t,n,o)=>{if(t&&typeof t==\"object\"||typeof t==\"function\")for(let r of d(t))!h.call(e,r)&&r!==n&&s(e,r,{get:()=>t[r],enumerable:!(o=p(t,r))||o.enumerable});return e};var f=(e,t,n)=>(n=e!=null?m(g(e)):{},i(t||!e||!e.__esModule?s(n,\"default\",{value:e,enumerable:!0}):n,e)),_=e=>i(s({},\"__esModule\",{value:!0}),e);var l=x((L,c)=>{c.exports=_jsx_runtime});var C={};j(C,{default:()=>M,frontmatter:()=>b});var a=f(l()),b={title:\"Puits Solaire \\xE0 Matam\",date:new Date(16684704e5),excerpt:\"Acc\\xE8s \\xE0 l'eau potable pour 500 villageois gr\\xE2ce \\xE0 l'\\xE9nergie solaire.\",status:\"completed\",cover:\"https://images.unsplash.com/photo-1541883738096-7bb2a0487042\"};function u(e){let t=Object.assign({h1:\"h1\",p:\"p\"},e.components);return(0,a.jsxs)(a.Fragment,{children:[(0,a.jsx)(t.h1,{children:\"L'eau, c'est la vie\"}),`\n`,(0,a.jsx)(t.p,{children:\"Ce forage motoris\\xE9 par des panneaux solaires permet aux femmes de gagner 2 heures par jour, qu'elles consacrent \\xE0 d'autres activit\\xE9s g\\xE9n\\xE9ratrices de revenus.\"}),`\n`,(0,a.jsx)(t.p,{children:\"L'irrigation du jardin communautaire est d\\xE9sormais possible toute l'ann\\xE9e, renfor\\xE7ant la s\\xE9curit\\xE9 alimentaire du village.\"})]})}function v(e={}){let{wrapper:t}=e.components||{};return t?(0,a.jsx)(t,Object.assign({},e,{children:(0,a.jsx)(u,e)})):u(e)}var M=v;return _(C);})();\n;return Component;"
+        },
+        "_id": "projects/puits-matam.mdx",
+        "_raw": {
+          "sourceFilePath": "projects/puits-matam.mdx",
+          "sourceFileName": "puits-matam.mdx",
+          "sourceFileDir": "projects",
+          "contentType": "mdx",
+          "flattenedPath": "projects/puits-matam"
+        },
+        "type": "Project",
+        "slug": "puits-matam",
+        "url": "/actions/puits-matam"
+      },
+      "documentHash": "1772921018441",
+      "hasWarnings": false,
+      "documentTypeName": "Project"
+    }
+  }
+}
