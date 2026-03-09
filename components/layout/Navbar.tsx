@@ -10,6 +10,7 @@ import {
     Menu, X, Heart, LayoutGrid, Info, Calendar, Newspaper,
     Users, Phone, LogIn, LogOut, ShieldCheck
 } from 'lucide-react';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession, signOut } from "next-auth/react";
 
@@ -82,6 +83,7 @@ export function Navbar() {
 
                 {/* ── Actions Desktop ── */}
                 <div className="hidden lg:flex items-center gap-2 shrink-0">
+                    <LanguageSwitcher />
                     {session ? (
                         <div className="flex items-center gap-1.5">
                             <Link
@@ -160,8 +162,14 @@ export function Navbar() {
                             {/* Séparateur */}
                             <div className="border-t border-slate-100 my-2" />
 
+                            {/* Langues Mobile */}
+                            <div className="px-4 py-2 flex items-center justify-between">
+                                <span className="text-[14px] font-medium text-slate-500">Langue du site</span>
+                                <LanguageSwitcher />
+                            </div>
+
                             {/* CTA Mobile */}
-                            <div className="flex flex-col gap-2 px-2 pb-2">
+                            <div className="flex flex-col gap-2 px-2 pb-2 mt-2">
                                 <Button size="default" className="w-full h-12 rounded-xl font-semibold text-[15px] bg-primary text-white shadow-md" asChild>
                                     <Link href="/donate">Faire un don</Link>
                                 </Button>
