@@ -1,25 +1,52 @@
 
 import { prisma } from '@/lib/prisma';
 
+function parsePost(post: any) {
+    if (!post) return null;
+    let parsedTags = [];
+    let parsedImages = [];
+
+    try {
+        parsedTags = typeof post.tags === 'string' ? JSON.parse(post.tags) : (post.tags || []);
+    } catch (e) {
+        console.error("Error parsing tags for post:", post.id, e);
+    }
+
+    try {
+        parsedImages = typeof post.images === 'string' ? JSON.parse(post.images) : (post.images || []);
+    } catch (e) {
+        console.error("Error parsing images for post:", post.id, e);
+    }
+
+    return {
+        ...post,
+        tags: Array.isArray(parsedTags) ? parsedTags : [],
+        images: Array.isArray(parsedImages) ? parsedImages : [],
+    };
+}
+
 export async function getPosts() {
-    return await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
         where: { published: true },
         orderBy: { date: 'desc' },
     });
+    return posts.map(parsePost);
 }
 
 export async function getPost(slug: string) {
     // ✅ Filtre sur published pour éviter la fuite de brouillons
-    return await prisma.post.findFirst({
+    const post = await prisma.post.findFirst({
         where: { slug, published: true },
     });
+    return parsePost(post);
 }
 
 export async function getFeaturedPosts() {
-    return await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
         where: { published: true, featured: true },
         orderBy: { date: 'desc' },
     });
+    return posts.map(parsePost);
 }
 
 export async function getTags() {

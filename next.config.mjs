@@ -42,9 +42,11 @@ const nextConfig = {
             { protocol: 'https', hostname: 'images.unsplash.com' },
             { protocol: 'https', hostname: 'placehold.co' },
             { protocol: 'https', hostname: 'i.pravatar.cc' },
+            { protocol: 'https', hostname: 'share.google' },
         ],
     },
     async headers() {
+        if (process.env.NODE_ENV === 'development') return [];
         return [
             {
                 source: '/(.*)',

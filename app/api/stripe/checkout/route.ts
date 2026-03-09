@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { rateLimit } from "@/lib/rate-limit";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: "2026-02-25.clover" as any,
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy_key_for_build', {
+    apiVersion: "2024-04-10" as any,
 });
 
 export async function POST(req: Request) {

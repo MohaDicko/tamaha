@@ -4,14 +4,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Play, MessageSquare, Heart, Bookmark, MoreHorizontal, Share2, Sparkles } from 'lucide-react';
+import { Play, MessageSquare, Heart, Bookmark, X, ChevronLeft, ChevronRight, Maximize2, Share2, Sparkles } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { SocialShare } from './SocialShare';
 import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export function MediaPostCard({ post }: { post: any }) {
     const postUrl = `/blog/${post.slug}`;
@@ -31,10 +31,32 @@ export function MediaPostCard({ post }: { post: any }) {
     const [isLiked, setIsLiked] = useState(false);
     const [likesCount, setLikesCount] = useState((seed % 50) + 5);
     const [isBookmarked, setIsBookmarked] = useState(false);
+    const [imgSrc, setImgSrc] = useState(post.cover || `https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1000&auto=format&fit=crop`);
+
+    // Carousel & Lightbox State
+    const [activeIdx, setActiveIdx] = useState(0);
+    const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+    const images = post.images || [];
+
+    const handleImgError = () => {
+        setImgSrc(`https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1000&auto=format&fit=crop`);
+    };
 
     const handleLike = () => {
         setIsLiked(!isLiked);
         setLikesCount(prev => isLiked ? prev - 1 : prev + 1);
+    };
+
+    const nextImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setActiveIdx((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setActiveIdx((prev) => (prev - 1 + images.length) % images.length);
     };
 
     return (
@@ -67,12 +89,13 @@ export function MediaPostCard({ post }: { post: any }) {
                 <div className="relative aspect-[16/10] overflow-hidden mx-5 rounded-2xl border border-slate-50">
                     {isVideo ? (
                         <div className="w-full h-full relative bg-slate-100 group/media">
-                            {post.cover && (
+                            {imgSrc && (
                                 <Image
-                                    src={post.cover}
+                                    src={imgSrc}
                                     alt={post.title}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    onError={handleImgError}
                                 />
                             )}
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -88,35 +111,76 @@ export function MediaPostCard({ post }: { post: any }) {
                                 <span className="bg-white/90 backdrop-blur-md text-slate-900 text-[9px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-widest border border-slate-100">Vidéo</span>
                             </div>
                         </div>
-                    ) : isGallery ? (
-                        <div className="grid grid-cols-2 gap-0.5 w-full h-full relative group/media bg-slate-50">
-                            {post.images?.slice(0, 4).map((img: string, idx: number) => (
-                                <div key={idx} className="relative w-full h-full overflow-hidden">
+                    ) : isGallery && images.length > 0 ? (
+                        <div className="w-full h-full relative group/media bg-slate-50 cursor-pointer overflow-hidden" onClick={() => setIsLightboxOpen(true)}>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeIdx}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    className="relative w-full h-full"
+                                >
                                     <Image
-                                        src={img}
-                                        alt={`Gallery ${idx}`}
+                                        src={images[activeIdx]}
+                                        alt={`Gallery ${activeIdx}`}
                                         fill
-                                        className="object-cover group-hover/media:scale-110 transition-transform duration-[1s]"
+                                        className="object-cover"
                                     />
-                                    {idx === 3 && post.images && post.images.length > 4 && (
-                                        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px] flex items-center justify-center">
-                                            <span className="text-white text-xl font-bold">+{post.images.length - 4}</span>
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                            <div className="absolute top-3 left-3">
-                                <span className="bg-white/90 backdrop-blur-md text-slate-900 text-[9px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-widest border border-slate-100">Photos</span>
+                                </motion.div>
+                            </AnimatePresence>
+
+                            {/* Carousel Controls */}
+                            {images.length > 1 && (
+                                <>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-white/20 backdrop-blur-md text-white opacity-0 group-hover/media:opacity-100 transition-opacity z-20"
+                                        onClick={prevImage}
+                                    >
+                                        <ChevronLeft size={20} />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-white/20 backdrop-blur-md text-white opacity-0 group-hover/media:opacity-100 transition-opacity z-20"
+                                        onClick={nextImage}
+                                    >
+                                        <ChevronRight size={20} />
+                                    </Button>
+
+                                    {/* Indicators */}
+                                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-20">
+                                        {images.map((_: any, idx: number) => (
+                                            <div
+                                                key={idx}
+                                                className={cn(
+                                                    "h-1 rounded-full transition-all duration-300",
+                                                    idx === activeIdx ? "w-4 bg-white" : "w-1.5 bg-white/40"
+                                                )}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            <div className="absolute top-3 left-3 z-20">
+                                <span className="bg-white/90 backdrop-blur-md text-slate-900 text-[9px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-widest border border-slate-100 flex items-center gap-1.5 shadow-sm">
+                                    <Sparkles size={10} className="text-primary" />
+                                    {images.length} Photos
+                                </span>
                             </div>
                         </div>
                     ) : (
                         <Link href={postUrl} className="block w-full h-full overflow-hidden relative group/media">
-                            {post.cover && (
+                            {imgSrc && (
                                 <Image
-                                    src={post.cover}
+                                    src={imgSrc}
                                     alt={post.title}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover/media:scale-110"
+                                    onError={handleImgError}
                                 />
                             )}
                             <div className="absolute top-3 left-3">
@@ -186,6 +250,90 @@ export function MediaPostCard({ post }: { post: any }) {
                     </Button>
                 </CardFooter>
             </Card>
+
+            {/* Lightbox / Modal View */}
+            <AnimatePresence>
+                {isLightboxOpen && images.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-4"
+                        onClick={() => setIsLightboxOpen(false)}
+                    >
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute top-6 right-6 text-white bg-white/10 hover:bg-white/20 rounded-full h-12 w-12"
+                            onClick={() => setIsLightboxOpen(false)}
+                        >
+                            <X size={28} />
+                        </Button>
+
+                        <div className="relative w-full max-w-5xl aspect-square sm:aspect-video" onClick={(e) => e.stopPropagation()}>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={`modal-${activeIdx}`}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    className="w-full h-full relative"
+                                >
+                                    <Image
+                                        src={images[activeIdx]}
+                                        alt={`Lightbox ${activeIdx}`}
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </motion.div>
+                            </AnimatePresence>
+
+                            {/* Nav Controls Inside Lightbox */}
+                            {images.length > 1 && (
+                                <>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="absolute -left-4 sm:left-4 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full text-white hover:bg-white/10"
+                                        onClick={prevImage}
+                                    >
+                                        <ChevronLeft size={44} />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="absolute -right-4 sm:right-4 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full text-white hover:bg-white/10"
+                                        onClick={nextImage}
+                                    >
+                                        <ChevronRight size={44} />
+                                    </Button>
+
+                                    {/* Page Info */}
+                                    <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-white/50 text-sm font-medium tracking-widest uppercase">
+                                        {activeIdx + 1} / {images.length}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+
+                        {/* Thumbnails at the bottom */}
+                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 max-w-[90vw] overflow-x-auto pb-2 scrollbar-none" onClick={(e) => e.stopPropagation()}>
+                            {images.map((img: string, idx: number) => (
+                                <button
+                                    key={`thumb-${idx}`}
+                                    onClick={() => setActiveIdx(idx)}
+                                    className={cn(
+                                        "relative h-16 w-16 sm:h-20 sm:w-20 rounded-lg overflow-hidden shrink-0 border-2 transition-all",
+                                        idx === activeIdx ? "border-primary opacity-100 scale-110" : "border-transparent opacity-40 hover:opacity-60"
+                                    )}
+                                >
+                                    <Image src={img} alt="thumb" fill className="object-cover" />
+                                </button>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>
     );
 }
