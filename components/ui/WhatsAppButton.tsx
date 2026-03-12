@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 
 export function WhatsAppButton() {
-    const phoneNumber = "22300000000"; // À remplacer par le vrai numéro
-    const message = "Bonjour Tammaha, je souhaiterais en savoir plus sur vos actions.";
+    const phoneNumber = "22370000000"; // Numéro Mali
+    const message = "Bonjour Tammaha, je souhaiterais en savoir plus sur vos actions au Mali et au Sénégal.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     const [expanded, setExpanded] = useState(false);
 

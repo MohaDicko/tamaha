@@ -36,7 +36,6 @@ export function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Fermer le menu mobile au changement de route
     React.useEffect(() => {
         setMobileMenuOpen(false);
     }, [pathname]);
@@ -44,162 +43,142 @@ export function Navbar() {
     return (
         <header
             className={cn(
-                "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
+                "fixed top-4 left-0 right-0 z-[100] transition-all duration-500 container mx-auto",
                 scrolled
-                    ? "bg-white/90 backdrop-blur-lg py-3 border-b border-slate-200/80 shadow-sm"
-                    : "bg-white/60 backdrop-blur-sm py-4 border-b border-transparent"
+                    ? "px-4"
+                    : "px-6"
             )}
         >
-            <div className="container flex items-center justify-between gap-4">
-
+            <nav
+                className={cn(
+                    "transition-all duration-500 rounded-[2rem] flex items-center justify-between gap-4 px-6 md:px-8 py-3 border border-white/20",
+                    scrolled
+                        ? "bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-premium py-3"
+                        : "bg-white/40 dark:bg-black/20 backdrop-blur-md py-4"
+                )}
+            >
                 {/* ── Logo ── */}
-                <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-                    <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-slate-200 group-hover:border-primary/50 transition-all shadow-sm">
-                        <img src="/logo.jpg" alt="Logo Tammaha" className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-500" />
+                <Link href="/" className="flex items-center gap-3 shrink-0 group">
+                    <div className="relative h-10 w-10 overflow-hidden rounded-2xl border-2 border-primary/20 group-hover:border-primary/50 transition-all shadow-soft group-hover:rotate-3">
+                        <img src="/logo.jpg" alt="Logo Tammaha" className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-700" />
+                        <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors" />
                     </div>
                     <div className="flex flex-col leading-none">
-                        <span className="text-base font-bold tracking-tight text-slate-900">TAMMAHA</span>
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-primary">Solidarité</span>
+                        <span className="text-lg font-black tracking-tighter text-foreground group-hover:text-primary transition-colors italic">TAMMAHA</span>
+                        <div className="flex items-center gap-1.5">
+                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary">Solidarité</span>
+                            <div className="w-1 h-1 bg-primary/20 rounded-full" />
+                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground">Développement</span>
+                        </div>
                     </div>
                 </Link>
 
-                {/* ── Navigation Desktop ── */}
-                <nav className="hidden lg:flex items-center gap-0.5" aria-label="Navigation principale">
-                    {mainLinks.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className={cn(
-                                "px-3.5 py-2 rounded-full text-[13px] font-medium transition-all duration-200",
-                                pathname === link.href
-                                    ? "bg-primary/10 text-primary font-semibold"
-                                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                            )}
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
-                </nav>
-
-                {/* ── Actions Desktop ── */}
-                <div className="hidden lg:flex items-center gap-2 shrink-0">
-                    <LanguageSwitcher />
-                    {session ? (
-                        <div className="flex items-center gap-1.5">
+                {/* ── Desktop Links ── */}
+                <div className="hidden lg:flex items-center gap-1 bg-muted/30 p-1 rounded-2xl border border-border/40">
+                    {mainLinks.map((link) => {
+                        const isActive = pathname === link.href;
+                        return (
                             <Link
-                                href="/admin"
-                                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-all"
+                                key={link.href}
+                                href={link.href}
+                                className={cn(
+                                    "px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all relative group",
+                                    isActive
+                                        ? "text-primary bg-background shadow-soft"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                )}
                             >
-                                <ShieldCheck size={15} />
-                                Admin
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="nav-active"
+                                        className="absolute inset-0 bg-background rounded-xl shadow-soft -z-10"
+                                        transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                                    />
+                                )}
+                                {link.label}
                             </Link>
-                            <button
-                                onClick={() => signOut({ callbackUrl: '/' })}
-                                title="Se déconnecter"
-                                className="p-2.5 rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all"
-                                aria-label="Se déconnecter"
-                            >
-                                <LogOut size={15} />
-                            </button>
-                        </div>
+                        );
+                    })}
+                </div>
+
+                {/* ── Desktop Actions ── */}
+                <div className="hidden lg:flex items-center gap-3">
+                    <LanguageSwitcher />
+
+                    <div className="h-6 w-px bg-border/60 mx-1" />
+
+                    {session ? (
+                        <Link href="/admin">
+                            <Button variant="outline" size="sm" className="rounded-xl h-10 px-4 text-[10px] font-black uppercase tracking-widest border-2 gap-2 hover:bg-primary/5 hover:text-primary">
+                                <ShieldCheck size={14} /> Admin
+                            </Button>
+                        </Link>
                     ) : (
-                        <Link
-                            href="/login"
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium text-slate-500 hover:text-primary hover:bg-slate-100 border border-slate-200 hover:border-primary/30 transition-all"
-                            title="Espace administrateur"
-                        >
-                            <LogIn size={14} />
-                            Admin
+                        <Link href="/login">
+                            <Button variant="ghost" size="sm" className="rounded-xl h-10 px-4 text-[10px] font-black uppercase tracking-widest gap-2">
+                                <LogIn size={14} /> Espace Admin
+                            </Button>
                         </Link>
                     )}
+
                     <Button
-                        className="rounded-full px-6 h-10 text-[13px] font-semibold bg-primary text-white hover:bg-primary/90 shadow-md shadow-primary/25 transition-all"
+                        className="rounded-xl px-6 h-10 text-[10px] font-black uppercase tracking-widest bg-primary text-white hover:bg-primary/90 shadow-xl shadow-primary/20 hover:scale-[1.03] transition-all"
                         asChild
                     >
-                        <Link href="/donate">Donner</Link>
+                        <Link href="/donate">Faire un Don ❤️</Link>
                     </Button>
                 </div>
 
-                {/* ── Toggle Mobile ── */}
+                {/* ── Mobile Toggle ── */}
                 <button
-                    className="lg:hidden p-2 rounded-xl text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors"
+                    className="lg:hidden p-3 rounded-2xl text-foreground bg-muted/50 border border-border/50 hover:bg-muted transition-colors active:scale-95"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                    aria-expanded={mobileMenuOpen}
                 >
                     {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
-            </div>
+            </nav>
 
-            {/* ── Menu Mobile ── */}
+            {/* ── Mobile Menu ── */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="lg:hidden overflow-hidden bg-white border-t border-slate-100"
+                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="lg:hidden absolute top-20 left-4 right-4 z-50 overflow-hidden bg-white/95 dark:bg-black/95 backdrop-blur-2xl rounded-[2.5rem] border border-white/20 shadow-premium"
                     >
-                        <div className="container py-4 flex flex-col gap-1">
-                            {/* Liens navigation */}
+                        <div className="p-6 flex flex-col gap-2">
                             {mainLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
                                     className={cn(
-                                        "flex items-center gap-3 px-4 py-3 rounded-xl text-[15px] font-medium transition-all",
+                                        "flex items-center gap-4 px-6 py-4 rounded-2xl text-[14px] font-black uppercase tracking-widest transition-all",
                                         pathname === link.href
-                                            ? "bg-primary/8 text-primary font-semibold"
-                                            : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                                            ? "bg-primary text-white shadow-xl shadow-primary/20"
+                                            : "text-muted-foreground hover:bg-muted"
                                     )}
                                 >
-                                    <link.icon size={17} className={pathname === link.href ? "text-primary" : "text-slate-400"} />
+                                    <link.icon size={18} />
                                     {link.label}
                                 </Link>
                             ))}
 
-                            {/* Séparateur */}
-                            <div className="border-t border-slate-100 my-2" />
+                            <div className="h-px bg-border/50 my-4" />
 
-                            {/* Langues Mobile */}
-                            <div className="px-4 py-2 flex items-center justify-between">
-                                <span className="text-[14px] font-medium text-slate-500">Langue du site</span>
-                                <LanguageSwitcher />
-                            </div>
-
-                            {/* CTA Mobile */}
-                            <div className="flex flex-col gap-2 px-2 pb-2 mt-2">
-                                <Button size="default" className="w-full h-12 rounded-xl font-semibold text-[15px] bg-primary text-white shadow-md" asChild>
-                                    <Link href="/donate">Faire un don</Link>
+                            <div className="grid grid-cols-2 gap-3">
+                                <Button variant="outline" className="h-14 rounded-2xl font-black uppercase tracking-widest text-[11px]" asChild>
+                                    <Link href="/login">Compte Admin</Link>
                                 </Button>
-
-                                {session ? (
-                                    <div className="flex gap-2">
-                                        <Button variant="outline" className="flex-1 h-11 rounded-xl font-medium text-[14px]" asChild>
-                                            <Link href="/admin">
-                                                <ShieldCheck size={15} className="mr-2" />
-                                                Admin
-                                            </Link>
-                                        </Button>
-                                        <Button
-                                            variant="ghost"
-                                            className="h-11 w-11 rounded-xl text-red-400 hover:text-red-600 hover:bg-red-50 p-0"
-                                            onClick={() => signOut({ callbackUrl: '/' })}
-                                            aria-label="Se déconnecter"
-                                        >
-                                            <LogOut size={16} />
-                                        </Button>
-                                    </div>
-                                ) : (
-                                    <Button variant="outline" className="w-full h-11 rounded-xl font-medium text-[14px] text-slate-600" asChild>
-                                        <Link href="/login">
-                                            <LogIn size={15} className="mr-2" />
-                                            Connexion Admin
-                                        </Link>
-                                    </Button>
-                                )}
+                                <div className="flex items-center justify-center bg-muted rounded-2xl h-14">
+                                    <LanguageSwitcher />
+                                </div>
                             </div>
+
+                            <Button size="lg" className="w-full h-16 rounded-[1.5rem] font-black uppercase tracking-widest text-sm bg-primary text-white shadow-xl shadow-primary/20 mt-2" asChild>
+                                <Link href="/donate">Faire un don ❤️</Link>
+                            </Button>
                         </div>
                     </motion.div>
                 )}

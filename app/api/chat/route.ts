@@ -1,10 +1,6 @@
 import { streamText } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
-});
-
 export const runtime = 'edge';
 
 // Le prompt système définit le persona de l'IA
@@ -19,21 +15,43 @@ Important: Ne donne pas d'informations personnelles sensibles. Si tu ne connais 
 
 export async function POST(req: Request) {
     try {
+        const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+
+        if (!apiKey || apiKey === 'votre_cle_api_gemini') {
+            console.error("Chat API: Missing or placeholder API key");
+            return new Response(
+                JSON.stringify({ error: "Missing or invalid Google Gemini API Key. Please configure GOOGLE_GENERATIVE_AI_API_KEY in your .env file." }),
+                { status: 400, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
+        const google = createGoogleGenerativeAI({
+            apiKey: apiKey,
+        });
+
         const { messages } = await req.json();
 
         const result = await streamText({
-            model: google('models/gemini-1.5-flash'), // Model gratuit très rapide et puissant
+            model: google('gemini-1.5-flash'), // Model gratuit très rapide et puissant
             system: systemPrompt,
             messages,
             temperature: 0.7,
         });
 
         return result.toTextStreamResponse();
-    } catch (error) {
-        console.error("Chat API error:", error);
-        // Retourne une erreur gracieuse
+    } catch (error: any) {
+        console.error("Chat API error details:", error);
+
+        // Specific error for unauthorized (invalid key)
+        if (error?.status === 401 || error?.name === 'UnauthorizedError') {
+            return new Response(
+                JSON.stringify({ error: "Unauthorized: The provided Google Gemini API key is invalid or has insufficient permissions." }),
+                { status: 401, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
         return new Response(
-            JSON.stringify({ error: "Failed to generate AI response. Please check your API key." }),
+            JSON.stringify({ error: "Failed to generate AI response. Error: " + (error?.message || "Unknown error") }),
             { status: 500, headers: { 'Content-Type': 'application/json' } }
         );
     }

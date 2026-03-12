@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { amount, frequency, return_url } = await req.json();
+        const { amount, frequency, return_url, donationId } = await req.json();
 
         if (!amount) {
             return NextResponse.json(
@@ -28,9 +28,6 @@ export async function POST(req: Request) {
         }
 
         // Convertir l'argent en centimes pour Stripe (ex: 20 EUR -> 2000)
-        // Nota : Les montants reçus pour Stripe seront potentiellement en € au lieu de CFA,
-        // ou bien convertis mathématiquement (ex: 1€ = 655 CFA). 
-        // Pour l'instant, on suppose que `amount` est envoyé en EUR si méthode = Carte.
         const unitAmount = Math.round(amount * 100);
 
         let sessionParams: Stripe.Checkout.SessionCreateParams = {
@@ -42,19 +39,19 @@ export async function POST(req: Request) {
                         product_data: {
                             name: "Don à l'Association Tammaha",
                             description: frequency === "monthly" ? "Don mensuel" : "Don ponctuel",
-                            images: ["https://tammaha.vercel.app/logo.png"], // Remplacer par un vrai lien plus tard
+                            images: ["https://tammaha.org/logo.png"],
                         },
                         unit_amount: unitAmount,
-                        // Stripe nécessite une configuration produit différente pour les abonnements
-                        // Pour simplifier ce MVP, on fait uniquement du "payment" (ponctuel) même
-                        // si l'intention était un don régulier, on gérera les abonnements complexes plus tard.
                     },
                     quantity: 1,
                 },
             ],
-            mode: "payment", // Ou 'subscription' pour des dons mensuels, mais demande de créer des "Products" dans Stripe.
+            mode: "payment",
             success_url: `${return_url}?success=true&amount=${amount}&method=card`,
             cancel_url: `${return_url}?canceled=true`,
+            metadata: {
+                donationId: donationId || '',
+            },
         };
 
         const checkoutSession: Stripe.Checkout.Session =
@@ -63,8 +60,16 @@ export async function POST(req: Request) {
         return NextResponse.json({ url: checkoutSession.url });
     } catch (err: any) {
         console.error("Erreur création session Stripe:", err);
+
+        let errorMessage = "Erreur interne";
+        if (err.message?.includes("No API key provided")) {
+            errorMessage = "Configuration Stripe manquante (Clé API non configurée dans .env)";
+        } else if (err.message) {
+            errorMessage = err.message;
+        }
+
         return NextResponse.json(
-            { error: err.message || "Erreur interne" },
+            { error: errorMessage },
             { status: 500 }
         );
     }

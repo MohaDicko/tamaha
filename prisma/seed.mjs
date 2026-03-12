@@ -19,7 +19,7 @@ async function main() {
                 excerpt: post.excerpt,
                 content: post.body.raw,
                 cover: post.cover,
-                tags: post.tags || [],
+                tags: JSON.stringify(post.tags || []),
                 featured: post.featured || false,
                 format: post.format || 'article',
                 videoUrl: post.videoUrl,

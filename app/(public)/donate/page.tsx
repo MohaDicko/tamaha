@@ -9,9 +9,9 @@ export const metadata = {
 
 export default function Donate() {
     return (
-        <div className="bg-background min-h-screen">
+        <div className="bg-background min-h-screen relative">
             {/* Hero Section with abstract design */}
-            <div className="relative pt-24 pb-32 md:pt-32 md:pb-48 bg-primary overflow-hidden">
+            <div className="relative pt-32 pb-40 md:pt-40 md:pb-56 bg-[#006633] overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                     <div className="absolute -top-[10%] -left-[5%] w-[40%] h-[40%] rounded-full bg-white blur-[100px]" />
                     <div className="absolute top-[60%] -right-[10%] w-[50%] h-[50%] rounded-full bg-secondary blur-[120px]" />
@@ -33,9 +33,11 @@ export default function Donate() {
             </div>
 
             {/* Donation Form Section */}
-            <div className="relative -mt-20 md:-mt-32 pb-24 px-4">
+            <div className="relative -mt-24 md:-mt-40 pb-24 px-4 z-20">
                 <Container>
-                    <DonationForm />
+                    <div className="bg-card rounded-[3rem] shadow-premium overflow-hidden border border-border">
+                        <DonationForm />
+                    </div>
                 </Container>
             </div>
 
