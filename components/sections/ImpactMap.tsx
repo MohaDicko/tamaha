@@ -58,7 +58,7 @@ export function ImpactMap() {
     const [activeLocation, setActiveLocation] = useState(0);
 
     return (
-        <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
+        <section className="py-24 md:py-32 bg-slate-50 dark:bg-slate-900/20 relative overflow-hidden">
             {/* Décorations de fond */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
                 <div className="absolute top-[10%] right-[-5%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]" />
@@ -75,17 +75,17 @@ export function ImpactMap() {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-2xl bg-white border border-border shadow-soft text-[10px] font-black uppercase tracking-[0.2em] text-primary"
+                                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-border shadow-soft text-[10px] font-black uppercase tracking-[0.2em] text-primary"
                             >
                                 <Globe size={13} className="animate-spin-slow" /> Nos Zones d'Impact
                             </motion.div>
 
-                            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 leading-[1] uppercase">
+                            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white leading-[1] uppercase">
                                 Présence au <br />
                                 <span className="text-primary italic font-serif-display lowercase">Sénégal &amp; Mali</span>
                             </h2>
 
-                            <p className="text-slate-500 text-base font-medium leading-relaxed">
+                            <p className="text-slate-500 dark:text-slate-400 text-base font-medium leading-relaxed">
                                 De Dakar à Bamako, nous déployons nos ressources là où l'urgence sociale et sanitaire l'exige.
                             </p>
                         </div>
@@ -98,8 +98,8 @@ export function ImpactMap() {
                                     className={cn(
                                         "group relative p-6 rounded-[1.5rem] border-2 transition-all duration-500 text-left overflow-hidden",
                                         activeLocation === i
-                                            ? "bg-white border-primary shadow-premium translate-x-3"
-                                            : "bg-transparent border-slate-200/60 hover:border-slate-300 grayscale opacity-60 hover:opacity-100 hover:grayscale-0"
+                                            ? "bg-white dark:bg-slate-900 border-primary shadow-premium translate-x-3"
+                                            : "bg-transparent border-slate-200/60 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 grayscale opacity-60 hover:opacity-100 hover:grayscale-0"
                                     )}
                                 >
                                     {activeLocation === i && (
@@ -115,27 +115,27 @@ export function ImpactMap() {
                                         </div>
                                         <span className="text-[10px] font-black text-primary/60">{loc.country}</span>
                                     </div>
-                                    <p className="text-[11px] font-medium text-slate-500 leading-snug">{loc.details}</p>
+                                    <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-snug">{loc.details}</p>
                                 </button>
                             ))}
                         </div>
                     </div>
 
                     {/* ── CARTE VISUELLE ── */}
-                    <div className="flex-1 min-h-[500px] lg:min-h-0 relative bg-white rounded-[3rem] border-2 border-slate-100 shadow-premium overflow-hidden group/map">
+                    <div className="flex-1 min-h-[500px] lg:min-h-0 relative bg-white dark:bg-slate-950 rounded-[3rem] border-2 border-slate-100 dark:border-slate-800 shadow-premium overflow-hidden group/map">
 
                         {/* Motif de fond (Grid) */}
                         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, black 1px, transparent 0)', backgroundSize: '30px 30px' }} />
 
                         {/* Top Overlay */}
                         <div className="absolute top-8 left-8 z-20">
-                            <div className="flex items-center gap-4 glass bg-white/20 p-2 pr-6 rounded-2xl border border-white/40 shadow-xl">
+                            <div className="flex items-center gap-4 glass bg-white/20 dark:bg-black/20 p-2 pr-6 rounded-2xl border border-white/40 dark:border-white/10 shadow-xl">
                                 <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
                                     <MapPin size={24} />
                                 </div>
                                 <div>
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Localisation Actuelle</p>
-                                    <p className="text-lg font-black text-slate-900 tracking-tight">{locations[activeLocation].name}</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Localisation Actuelle</p>
+                                    <p className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{locations[activeLocation].name}</p>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +150,7 @@ export function ImpactMap() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 1.5, ease: "easeInOut" }}
                                     d="M50,250 C80,180 150,150 200,160 C250,170 300,220 300,280 C300,340 250,380 180,390 C120,400 60,350 50,250"
-                                    className="fill-slate-50 stroke-slate-200"
+                                    className="fill-slate-50 dark:fill-slate-900 stroke-slate-200 dark:stroke-slate-800"
                                     strokeWidth="2"
                                 />
                                 {/* Mali Shape Concept */}
@@ -160,13 +160,26 @@ export function ImpactMap() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
                                     d="M300,280 C350,200 450,150 550,100 C650,50 750,80 780,200 C800,350 700,450 600,480 C500,500 400,450 300,280"
-                                    className="fill-slate-50 stroke-slate-200"
+                                    className="fill-slate-50 dark:fill-slate-900 stroke-slate-200 dark:stroke-slate-800"
                                     strokeWidth="2"
                                 />
 
                                 {/* Points de connexion */}
                                 {locations.map((loc, i) => (
-                                    <g key={i} className="cursor-pointer" onClick={() => setActiveLocation(i)}>
+                                    <g 
+                                        key={i} 
+                                        className="cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full" 
+                                        onClick={() => setActiveLocation(i)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                setActiveLocation(i);
+                                            }
+                                        }}
+                                        tabIndex={0}
+                                        role="button"
+                                        aria-label={`Voir les détails pour ${loc.name}`}
+                                    >
                                         {/* Point Glow */}
                                         <AnimatePresence>
                                             {activeLocation === i && (
@@ -181,12 +194,12 @@ export function ImpactMap() {
                                             )}
                                         </AnimatePresence>
 
-                                        {/* Main Point */}
                                         <motion.circle
                                             cx={loc.coords.x} cy={loc.coords.y}
-                                            r={activeLocation === i ? 12 : 6}
-                                            className={cn("transition-all duration-500", activeLocation === i ? "fill-primary" : "fill-slate-300 hover:fill-slate-400")}
-                                            animate={activeLocation === i ? { r: 12 } : { r: 6 }}
+                                            initial={false}
+                                            animate={{ r: activeLocation === i ? 12 : 6 }}
+                                            transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                                            className={cn("transition-colors duration-500", activeLocation === i ? "fill-primary" : "fill-slate-300 dark:fill-slate-700 hover:fill-slate-400 dark:hover:fill-slate-600")}
                                         />
 
                                         {/* Label Tag on Map */}
@@ -215,24 +228,24 @@ export function ImpactMap() {
 
                         {/* Bottom Stats Overlay */}
                         <div className="absolute bottom-8 left-8 right-8 z-20 flex justify-between items-center pointer-events-none">
-                            <div className="flex gap-10 glass bg-white/40 p-6 rounded-[2rem] border border-white/60 shadow-2xl backdrop-blur-md">
+                            <div className="flex gap-10 glass bg-white/40 dark:bg-black/40 p-6 rounded-[2rem] border border-white/60 dark:border-white/10 shadow-2xl backdrop-blur-md">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                         <Users size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Collaborateurs</p>
-                                        <p className="text-xl font-black text-slate-900 tracking-tighter">45+</p>
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Collaborateurs</p>
+                                        <p className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">45+</p>
                                     </div>
                                 </div>
-                                <div className="w-px h-10 bg-slate-200" />
+                                <div className="w-px h-10 bg-slate-200 dark:bg-slate-800" />
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-600">
                                         <Activity size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Actions / Mois</p>
-                                        <p className="text-xl font-black text-slate-900 tracking-tighter">12</p>
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Actions / Mois</p>
+                                        <p className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">12</p>
                                     </div>
                                 </div>
                             </div>

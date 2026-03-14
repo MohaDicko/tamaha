@@ -2,11 +2,12 @@
 import { getPosts } from '@/lib/content';
 import { MediaFeed } from '@/components/blog/MediaFeed';
 import { Container } from '@/components/layout/Container';
+import { constructMetadata } from '@/lib/seo';
 
-export const metadata = {
-    title: 'Actualités | Tammaha',
+export const metadata = constructMetadata({
+    title: 'Actualités',
     description: 'Suivez nos actions, nos vidéos et nos albums photos sur le terrain.',
-};
+});
 
 export const revalidate = 60; // Revalidate every 60 seconds
 

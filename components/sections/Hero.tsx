@@ -54,7 +54,7 @@ export function Hero() {
                             className="space-y-6"
                         >
                             <h1 className="text-foreground leading-[1.1] tracking-tighter">
-                                Un Engagemement pour une{' '}
+                                Un Engagement pour une{' '}
                                 <span className="text-primary italic font-serif-display block sm:inline">Vie Meilleure</span>
                                 <br />
                                 <span className="text-shimmer">au Cœur de l'Afrique.</span>

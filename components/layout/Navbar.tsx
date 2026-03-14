@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -60,7 +61,7 @@ export function Navbar() {
                 {/* ── Logo ── */}
                 <Link href="/" className="flex items-center gap-3 shrink-0 group">
                     <div className="relative h-10 w-10 overflow-hidden rounded-2xl border-2 border-primary/20 group-hover:border-primary/50 transition-all shadow-soft group-hover:rotate-3">
-                        <img src="/logo.jpg" alt="Logo Tammaha" className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-700" />
+                        <Image src="/logo.jpg" alt="Logo Tammaha" fill priority sizes="40px" className="object-cover transition-transform group-hover:scale-110 duration-700" />
                         <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors" />
                     </div>
                     <div className="flex flex-col leading-none">

@@ -7,11 +7,12 @@ import { CTA } from '@/components/sections/CTA';
 import { PartnersGrid } from '@/components/sections/PartnersGrid';
 import { LatestPosts } from '@/components/sections/LatestPosts';
 import { getPosts } from '@/lib/content';
+import { constructMetadata } from '@/lib/seo';
 
-export const metadata = {
-    title: 'Accueil | Tammaha - Agir pour le développement et la solidarité',
+export const metadata = constructMetadata({
+    title: 'Accueil',
     description: 'Tammaha est une association engagée pour la santé, l\'éducation et la protection des plus vulnérables au Sénégal.',
-};
+});
 
 export const revalidate = 3600; // Revalidate every 1 hour
 

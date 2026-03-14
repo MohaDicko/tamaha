@@ -5,11 +5,12 @@ import { getProjects } from '@/lib/content';
 import { Container } from '@/components/layout/Container';
 import { ArrowRight, CheckCircle2, Clock, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { constructMetadata } from '@/lib/seo';
 
-export const metadata = {
-    title: 'Nos Actions | Tammaha — Projets sur le terrain',
+export const metadata = constructMetadata({
+    title: 'Nos Actions',
     description: 'Découvrez les projets solidaires menés par Tammaha : santé, éducation et protection des vulnérables au Sénégal.',
-};
+});
 
 export const revalidate = 3600;
 
