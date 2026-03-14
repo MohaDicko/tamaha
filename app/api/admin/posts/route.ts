@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 // ─── Helper : génère un slug unique ─────────────────────────────────────────
@@ -29,8 +30,8 @@ async function generateUniqueSlug(title: string): Promise<string> {
 // ─── POST : Créer un article ─────────────────────────────────────────────────
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
@@ -75,8 +76,8 @@ export async function POST(req: Request) {
 // ─── GET : Lister les articles ───────────────────────────────────────────────
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
@@ -116,8 +117,8 @@ export async function GET(req: Request) {
 // ─── PUT : Modifier un article ───────────────────────────────────────────────
 export async function PUT(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
@@ -157,8 +158,8 @@ export async function PUT(req: Request) {
 // ─── DELETE : Supprimer un article ──────────────────────────────────────────
 export async function DELETE(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 

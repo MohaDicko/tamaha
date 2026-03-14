@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 // Helper: generate unique slug
@@ -26,8 +27,8 @@ async function generateUniqueSlug(title: string): Promise<string> {
 
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
@@ -44,8 +45,8 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
@@ -79,8 +80,8 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
@@ -113,8 +114,8 @@ export async function PUT(req: Request) {
 
 export async function DELETE(req: Request) {
     try {
-        const session = await getServerSession();
-        if (!session) {
+        const session = await getServerSession(authOptions);
+        if (!session || (session.user as any).role !== "ADMIN") {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
