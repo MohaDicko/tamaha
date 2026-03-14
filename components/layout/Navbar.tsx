@@ -44,7 +44,7 @@ export function Navbar() {
     return (
         <header
             className={cn(
-                "fixed top-4 left-0 right-0 z-[100] transition-all duration-500 container mx-auto",
+                "fixed top-4 left-0 right-0 z-[120] transition-all duration-500 pointer-events-none",
                 scrolled
                     ? "px-4"
                     : "px-6"
@@ -52,7 +52,7 @@ export function Navbar() {
         >
             <nav
                 className={cn(
-                    "transition-all duration-500 rounded-[2rem] flex items-center justify-between gap-4 px-6 md:px-8 py-3 border border-white/20",
+                    "container mx-auto transition-all duration-500 rounded-[2rem] flex items-center justify-between gap-4 px-6 md:px-8 pointer-events-auto border border-white/20",
                     scrolled
                         ? "bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-premium py-3"
                         : "bg-white/40 dark:bg-black/20 backdrop-blur-md py-4"
@@ -92,11 +92,11 @@ export function Navbar() {
                                 {isActive && (
                                     <motion.div
                                         layoutId="nav-active"
-                                        className="absolute inset-0 bg-background rounded-xl shadow-soft -z-10"
+                                        className="absolute inset-0 bg-background rounded-xl shadow-soft -z-10 pointer-events-none"
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                                     />
                                 )}
-                                {link.label}
+                                <span className="relative z-10">{link.label}</span>
                             </Link>
                         );
                     })}
